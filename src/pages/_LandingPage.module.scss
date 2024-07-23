@@ -2,14 +2,20 @@
 @import '../styles/utils/variables';
 
 .landingPage {
-  @include flexCenter;
-  height: 100vh;
+}
+
+.section1 {
   background-color: $background-dark;
-  color: $background-light;
-  text-align: center;
+  height: 100vh;
+  width: 100vw;
+  @include flexCenter;
   .holeBox {
     img {
-      opacity: 0.5;
+      opacity: 0.1;
+      transition: opacity 0.1s;
     }
   }
+}
+.section2 {
+
 }
