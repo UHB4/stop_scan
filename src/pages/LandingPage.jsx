@@ -26,6 +26,11 @@ export default function LandingPage() {
         // 마우스 오버 시 애니메이션 멈추기
         const handleMouseOver = () => {
             animationRef.current.pause();
+            gsap.to(imgRef.current, {
+                opacity: 1.3,
+                duration: 0.3,
+                ease: 'power1.inOut',
+            });
         };
 
         // 마우스 아웃 시 애니메이션 재시작
