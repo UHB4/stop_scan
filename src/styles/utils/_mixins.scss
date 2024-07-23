@@ -1,0 +1,43 @@
+// Flexbox 믹스
+@mixin flex($justify: center, $align: center, $direction: row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}
+
+// 가운데 정렬 믹스
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// 간단한 카드 스타일 믹스
+@mixin card($bg-color, $border-color) {
+  height: 300px;
+  border: 1px solid $border-color;
+  background-color: $bg-color;
+}
+
+// 절대 위치 정렬 믹스
+@mixin posXY {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// 말줄임 믹스
+@mixin ell {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+// 폰트 패밀리 믹스
+@mixin ff-g {
+  font-family: 'Pretendard', sans-serif; // 기본 폰트 설정으로 Pretendard 사용
+}

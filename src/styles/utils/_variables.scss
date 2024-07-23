@@ -1,0 +1,63 @@
+// 배경 색상 변수
+
+$background-light: #ffffff; // 밝은 배경색
+$background-dark: #000000; // 어두운 배경색
+$background-primary: #78CFE0; // 주 배경색
+$background-secondary: #62A0C9; // 보조 배경색 Linear 밑에 색깔
+
+
+// 버튼,활성 상태 변수
+
+$primary-50: #548DEE; // 페이지이동 버튼 색깔
+
+
+
+
+$font-size-root: 62.5% !default; // 10px 1rem으로 설정
+$fontFamilyMain: 'Pretendard', sans-serif !default;
+$fontFamilyLight: 'Pretendard', sans-serif !default;
+
+
+$font-size: (
+        sizes: (
+                display: (
+                        'sm': '4rem',
+                        'md': '5rem',
+                        'lg': '6.6rem',
+                ),
+                heading: (
+                        'sm': '3.2rem',
+                        'md': '4rem',
+                        'lg': '5rem',
+                ),
+                title: (
+                        'xsm': '1.5rem',
+                        'sm': '1.7rem',
+                        'md': '1.9rem',
+                        'lg': '2.1rem',
+                        'xlg': '2.5rem',
+                        'xxlg': '3.2rem',
+                ),
+                body: (
+                        'sm': '1.5rem',
+                        'md': '1.7rem',
+                        'lg': '1.9rem',
+                ),
+                link: (
+                        'sm': '1.5rem',
+                        'md': '1.7rem',
+                        'lg': '1.9rem',
+                ),
+                detail: (
+                        'sm': '1.3rem',
+                        'md': '1.5rem',
+                        'lg': '1.7rem',
+                ),
+                label: (
+                        'xsm': '1.3rem',
+                        'sm': '1.5rem',
+                        'md': '1.7rem',
+                        'lg': '1.9rem',
+                ),
+        ),
+) !default;

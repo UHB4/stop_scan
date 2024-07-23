@@ -1,0 +1,22 @@
+@import '../styles/utils/mixins';
+@import '../styles/utils/variables';
+
+.landingPage {
+  @include flexCenter;
+  height: 100vh;
+  background-color: $background-primary;
+  color: $background-light;
+  text-align: center;
+
+  .card {
+    @include card($background-light, $background-dark);
+    border-radius: 8px;
+  }
+
+  .title {
+    @include ell;
+  }
+
+  .description {
+  }
+}
