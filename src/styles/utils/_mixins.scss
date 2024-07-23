@@ -41,3 +41,9 @@
 @mixin ff-g {
   font-family: 'Pretendard', sans-serif; // 기본 폰트 설정으로 Pretendard 사용
 }
+@mixin fullBg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+}
