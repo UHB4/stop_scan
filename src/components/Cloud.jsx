@@ -1,59 +1,67 @@
 import React, { useRef, useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './_Cloud.module.scss';
 import cloud1 from '../assets/main/cloud/cloud1.png';
 import cloud2 from '../assets/main/cloud/cloud2.png';
 import cloud3 from '../assets/main/cloud/cloud3.png';
 import cloud4 from '../assets/main/cloud/cloud4.png';
+import cloud5 from '../assets/main/cloud/cloud5.png';
+import cloud6 from '../assets/main/cloud/cloud6.png';
+import cloud7 from '../assets/main/cloud/cloud7.png';
+import cloud8 from '../assets/main/cloud/cloud8.png';
+import cloud9 from '../assets/main/cloud/cloud9.png';
 
-export default function Cloud({ gsap }) {
-    const cloudRef1 = useRef(null);
-    const cloudRef2 = useRef(null);
-    const cloudRef3 = useRef(null);
-    const cloudRef4 = useRef(null);
+gsap.registerPlugin(ScrollTrigger);
+
+export default function Cloud() {
+    const cloudRefs = useRef([]);
 
     useEffect(() => {
-        const cloud1 = cloudRef1.current;
-        const cloud2 = cloudRef2.current;
-        const cloud3 = cloudRef3.current;
-        const cloud4 = cloudRef4.current;
+        const clouds = cloudRefs.current;
 
-        gsap.set(cloud1, {
-            xPercent: -50,
-            left: "50%",
-            bottom: "-20%",
-            position: "absolute",
-            zIndex: 10
-        });
-        gsap.set(cloud2, {
-            xPercent: -50,
-            left: "50%",
-            bottom: "-20%",
-            position: "absolute",
-            zIndex: 11
-        });
-        gsap.set(cloud3, {
-            xPercent: -50,
-            left: "80%",
-            bottom: "-10%",
-            position: "absolute",
-            zIndex: 12
-        });
-        gsap.set(cloud4, {
-            xPercent: -50,
-            left: "15%",
-            bottom: "-10%",
-            position: "absolute",
-            zIndex: 12
+        // 초기 위치 설정
+        clouds.forEach((cloud, index) => {
+            gsap.set(cloud, {
+                xPercent: -50,
+                left: `${(index + 1) * 10}%`,
+                bottom: `-${20 + Math.random() * 10}%`,
+                position: "absolute",
+                zIndex: 10 + index,
+                scale: 1 + (index % 3) * 0.1,
+                rotation: Math.random() * 20 - 10
+            });
         });
 
-    }, [gsap]);
+        // 스크롤 애니메이션 설정
+        clouds.forEach((cloud, index) => {
+            gsap.to(cloud, {
+                y: `-${100 + Math.random() * 100}%`,
+                opacity: 1,
+                scale: 0.8,
+                scrollTrigger: {
+                    trigger: cloud,
+                    start: "top -30%",
+                    end: "top top-=400",
+                    scrub: 1,
+                    markers: true, // 디버깅을 위해 마커를 표시할 수 있습니다.
+                }
+            });
+        });
+
+    }, []);
 
     return (
         <div className={styles.cloudContainer}>
-            <img ref={cloudRef1} src={cloud1} alt='cloud1' className={styles.cloud} />
-            <img ref={cloudRef2} src={cloud2} alt='cloud2' className={styles.cloud} />
-            <img ref={cloudRef3} src={cloud3} alt='cloud3' className={styles.cloud} />
-            <img ref={cloudRef4} src={cloud4} alt='cloud4' className={styles.cloud} />
+            {[cloud1, cloud2, cloud3, cloud4, cloud5, cloud6, cloud7, cloud8, cloud9].map((cloud, index) => (
+                <img
+                    key={index}
+                    ref={el => cloudRefs.current[index] = el}
+                    src={cloud}
+                    alt={`cloud${index + 1}`}
+                    className={styles.cloud}
+                />
+            ))}
         </div>
     );
 }
