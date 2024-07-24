@@ -7,73 +7,107 @@ import cloudBg from '../assets/landing/cloudBg.jpeg'
 import goldWheel from '../assets/landing/goldWheel.png'
 import cloudBg2 from '../assets/landing/cloudBg2.png'
 import car115Angle from '../assets/landing/car/car115Angle.png'
-
+import carRightSide from '../assets/landing/car/carRightSide.png'
 
 export default function MainPage(){
     gsap.registerPlugin(ScrollTrigger);
     const wheelRef = useRef(null);
-    const animationRef = useRef(null);
-    const carRef = useRef(null);
+    const section2Ref = useRef(null);
+    const section3Ref = useRef(null);
+    const carSideRef = useRef(null);
 
     useEffect(() => {
-        // goldWheel 이 위아래로 움직이게하는 애니매이션
-        animationRef.current = gsap.to(wheelRef.current, {
+        const section2Container = document.querySelector(`.${styles.section2Container}`);
+        const section3Container = document.querySelector(`.${styles.section3Container}`);
+        const section2 = section2Ref.current;
+        const section3 = section3Ref.current;
+        const wheel = wheelRef.current;
+        const carSide = carSideRef.current
+
+
+
+        ScrollTrigger.create({
+            trigger:section2Container,
+            start: "top top",
+            end: "bottom bottom",
+            pin: section2,
+            pinSpacing: false,
+        })
+
+        gsap.to(wheel,{
+            rotation: 120,
+            scrollTrigger: {
+                trigger: section2Container,
+                start: "top top",
+                end: "bottom top",
+                scrub: 1,
+            }
+        });
+
+        gsap.to(wheel, {
             y: -20,
             repeat: -1,
             yoyo: true,
             duration: 1,
             ease: 'power2.inOut',
-
         });
 
-        // 스크롤시 회전 애니메이션
-        gsap.to(wheelRef.current,{
-            rotation: -120,
-            scrollTrigger: {
-                trigger: wheelRef.current,
-                start: 'top 20%', //
-                end: 'bottom top',
-                scrub: 1,
+
+        ScrollTrigger.create({
+            trigger:section3Container,
+            start: "top top",
+            end: "bottom top",
+            pin: section3,
+            pinSpacing: false,
+        });
+
+        gsap.fromTo(carSide,
+            { x: '-200%', y: '50%'},
+            {
+                x: '230%',
+                scrollTrigger: {
+                    trigger: section3Container,
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: 1,
+                }
             }
-
-        })
-
-        gsap.to(carRef.current, {
-            y: '50vh',
-            scrollTrigger: {
-                trigger: carRef.current,
-                start: 'top 20%',
-                end: () => "+=" + window.innerHeight,
-                scrub: 1,
-            }
-        })
-
-
+        );
+        return () => {
+            ScrollTrigger.getAll().forEach(t => t.kill());
+        };
     }, []);
-
+    //
 
     return (
         <div className={styles.mainPage}>
+            <div className={styles.section2Container}>
 
-            <div className={styles.section2}>
-
-                <img src={cloudBg} alt="cloudBg" className={styles.cloudBg}/>
-                    <img
-                        ref={carRef}
-                        src={car115Angle}
-                        alt-="car1"
-                        className={styles.car115}/>
-                <div className={styles.wheelContainer}>
-                    <img
-                        ref={wheelRef}
-                        src={goldWheel}
-                        alt='goldWheel'
-                        className={styles.goldWheel}/>
+                <div ref={section2Ref} className={styles.section2}>
+                    <img src={cloudBg} alt="cloudBg" className={styles.cloudBg}/>
+                    <div className={styles.wheelContainer}>
+                        <img
+                            ref={wheelRef}
+                            src={goldWheel}
+                            alt='goldWheel'
+                            className={styles.goldWheel}
+                        />
+                    </div>
                 </div>
-
             </div>
-            <div className={styles.section3}>
-                <img src={cloudBg2} alt-='cloudBg2' className={styles.cloudBg2}/>
+
+            <div className={styles.section3Container}>
+                <div ref={section3Ref} className={styles.section3}>
+                    <img src={cloudBg2} alt-='cloudBg2' className={styles.cloudBg2}/>
+                    <div className={styles.carContainer}>
+                        <img
+                            ref={carSideRef}
+                            src={carRightSide}
+                            alt='carSide'
+                            className={styles.carSide}
+                        />
+                    </div>
+                </div>
             </div>
             <div className={styles.section4}>
 

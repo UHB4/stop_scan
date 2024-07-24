@@ -19,45 +19,66 @@ html, body {
   }
 }
 
-.section2 {
-      position: relative;
 
-      .cloudBg {
-        @include fullBg
-       }
-      .car115 {
-        position: absolute;
-        top: -50vh ;
-        left: 10vw ;
-        transform: translateX(-50%)  translateY(-50%);
-        z-index: 1;
-        max-width: 50%;
-        max-height: 50%;
-      }
-            .wheelContainer {
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-              width: 85%;
-              height: 85%;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-
-                    .goldWheel {
-                      max-width: 80%;
-                      max-height: 80%;
-                      object-fit: contain;
-                  }
-           }
-}
-
-.section3 {
-
-  img {
+.section2Container {
+  //position: relative;
+  //height: 100vh;
+  .cloudBg  {
     @include fullBg
   }
+    .section2 {
+    position: relative;
+    height: 100vh;
+      .wheelContainer {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        @include flexCenter;
+      }
+            .goldWheel {
+                //position: absolute;
+                //top: 50%;
+                //left: 50%;
+              @include flexCenter;
+                transform: translate(-50%, -50%);
+                max-width: 80%;
+                 max-height: 80%;
+                 object-fit: contain;
+                 z-index: 2;
+              }
+       }
+
+}
+
+
+.section3Container {
+
+  .cloudBg2  {
+    @include fullBg
+  }
+      .section3{
+        position: relative;
+        height: 100vh;
+      }
+  .carContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -65%);
+    width: 100%;
+    height: 100%;
+    @include flexCenter;
+  }
+        .carSide{
+              position: absolute;
+              z-index: 2;
+              max-width: 30%;
+              height: auto;
+  }
+
 }
 
 .section4 {
