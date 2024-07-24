@@ -3,11 +3,15 @@ import { useNavigate } from "react-router-dom";
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from './_MainPage.module.scss';
-import cloudBg from '../assets/landing/cloudBg.jpeg'
-import goldWheel from '../assets/landing/goldWheel.png'
-import cloudBg2 from '../assets/landing/cloudBg2.png'
-import car115Angle from '../assets/landing/car/car115Angle.png'
-import carRightSide from '../assets/landing/car/carRightSide.png'
+import cloudBg from '../assets/main/cloudBg.jpeg'
+import goldWheel from '../assets/main/goldWheel.png'
+import cloudBg2 from '../assets/main/cloudBg2.png'
+import car115Angle from '../assets/main/car/car115Angle.png'
+import carRightSide from '../assets/main/car/carRightSide.png'
+import cloud1 from '../assets/main/cloud/cloud1.png'
+import cloud2 from '../assets/main/cloud/cloud2.png'
+import cloud3 from '../assets/main/cloud/cloud3.png'
+import cloud4 from '../assets/main/cloud/cloud3.png'
 
 export default function MainPage(){
     gsap.registerPlugin(ScrollTrigger);
@@ -15,26 +19,94 @@ export default function MainPage(){
     const section2Ref = useRef(null);
     const section3Ref = useRef(null);
     const carSideRef = useRef(null);
+    const cloudRef1 = useRef(null);
+    const cloudRef2 = useRef(null);
+    const cloudRef3 = useRef(null);
+    const cloudRef4 = useRef(null);
+    const titleRef = useRef(null);
+    const [imagesLoaded , setImagesLoaded] = useState(false);
 
     useEffect(() => {
+        const imageUrls = [cloudBg, goldWheel, cloudBg2, carRightSide, cloud1];
+        let loadedImages = 0;
+
+        imageUrls.forEach((url) => {
+            const img = new Image();
+            img.onload = () => {
+                loadedImages++;
+                if (loadedImages === imageUrls.length) {
+                    setImagesLoaded(true);
+                }
+            };
+            img.src = url;
+        });
+    }, []);
+
+    useEffect(() => {
+        if (!imagesLoaded) return;
+
         const section2Container = document.querySelector(`.${styles.section2Container}`);
         const section3Container = document.querySelector(`.${styles.section3Container}`);
         const section2 = section2Ref.current;
         const section3 = section3Ref.current;
         const wheel = wheelRef.current;
-        const carSide = carSideRef.current
+        const carSide = carSideRef.current;
+        const cloud1 = cloudRef1.current;
+        const cloud2 = cloudRef2.current;
+        const cloud3 = cloudRef3.current;
+        const cloud4 = cloudRef4.current;
+        const titleText = titleRef.current;
 
+        // goldWheel 초기 위치상태설정
+        gsap.set(wheel, {
+            xPercent: -50,
+            yPercent: -50,
+            left: "50%",
+            top: "50%",
+            position: "absolute"
+        });
+
+        // cloud1,2,3 초기위치 설정
+        gsap.set(cloud1, {
+            xPercent: -50,
+            left: "50%",
+            bottom: "-20%",
+            position: "absolute",
+            zindex: 10
+        });
+        gsap.set(cloud2, {
+            xPercent: -50,
+            left: "50%",
+            bottom: "-20%",
+            position: "absolute",
+            zindex: 11
+        });
+        gsap.set(cloud3, {
+            xPercent: -50,
+            left: "80%",
+            bottom: "-10%",
+            position: "absolute",
+            zindex: 12
+        });
+
+        gsap.set(cloud4, {
+            xPercent: -50,
+            left: "15%",
+            bottom: "-10%",
+            position: "absolute",
+            zindex: 12
+        });
 
 
         ScrollTrigger.create({
-            trigger:section2Container,
+            trigger: section2Container,
             start: "top top",
             end: "bottom bottom",
             pin: section2,
             pinSpacing: false,
-        })
+        });
 
-        gsap.to(wheel,{
+        gsap.to(wheel, {
             rotation: 120,
             scrollTrigger: {
                 trigger: section2Container,
@@ -52,9 +124,8 @@ export default function MainPage(){
             ease: 'power2.inOut',
         });
 
-
         ScrollTrigger.create({
-            trigger:section3Container,
+            trigger: section3Container,
             start: "top top",
             end: "bottom top",
             pin: section3,
@@ -73,10 +144,40 @@ export default function MainPage(){
                 }
             }
         );
+
+        gsap.fromTo(titleText,
+            { x: '-100%', y: '30%', opacity: 1 },
+            {
+                x: '0%',
+                opacity: 1,
+                scrollTrigger: {
+                    trigger: section3Container,
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: 1,
+                },
+                ease: "power1.inOut"
+            }
+        );
+
+        // // STOP SCAN 텍스트에 흔들리는 효과 추가
+        // gsap.to(titleText, {
+        //     y: '+=10',
+        //     rotation: 0.5,
+        //     duration: 1,
+        //     repeat: -1,
+        //     yoyo: true,
+        //     ease: "sine.inOut"
+        // });
+
         return () => {
             ScrollTrigger.getAll().forEach(t => t.kill());
         };
-    }, []);
+    }, [imagesLoaded]);
+
+    if (!imagesLoaded) {
+        return <div>Loading...</div>;
+    }
     //
 
     return (
@@ -94,6 +195,32 @@ export default function MainPage(){
                         />
                     </div>
                 </div>
+                <div className={styles.cloudContainer}>
+                    <img
+                        ref={cloudRef1}
+                        src={cloud1}
+                        alt='cloud1'
+                        className={styles.cloud}
+                    />
+                    <img
+                        ref={cloudRef2}
+                        src={cloud2}
+                        alt='cloud2'
+                        className={styles.cloud}
+                    />
+                    <img
+                        ref={cloudRef3}
+                        src={cloud3}
+                        alt='cloud1'
+                        className={styles.cloud}
+                    />
+                    <img
+                        ref={cloudRef4}
+                        src={cloud4}
+                        alt='cloud4'
+                        className={styles.cloud}
+                    />
+                </div>
             </div>
 
             <div className={styles.section3Container}>
@@ -106,6 +233,13 @@ export default function MainPage(){
                             alt='carSide'
                             className={styles.carSide}
                         />
+                        <div
+                            ref={titleRef}
+                            className={styles.titleText}
+                            >
+                            STOP SCAN
+
+                        </div>
                     </div>
                 </div>
             </div>

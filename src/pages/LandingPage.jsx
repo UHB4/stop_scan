@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from './_LandingPage.module.scss';
-import keyHole from '../assets/landing/carKeyHole.jpg';
+import keyHole from '../assets/carKeyHole.jpg';
 
 export default function LandingPage() {
     gsap.registerPlugin(ScrollTrigger);

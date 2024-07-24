@@ -14,9 +14,7 @@ html, body {
   grid-template-rows: repeat(8, 100vh); //
   overflow: hidden;
 
-    .section2, .section3, .section4, .section5, .section6, .section7 .section8 {
-       @include flexCenter;
-  }
+
 }
 
 
@@ -78,8 +76,26 @@ html, body {
               max-width: 30%;
               height: auto;
   }
+  .titleText {
+    position: absolute;
+    font-size: 184px;
+    font-weight: bold;
+    color: $background-light;
+    pointer-events: none;
+    z-index: 1;
+  }
 
 }
+
+.cloudContainer{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100vh; // 구름 컨테이너 높이조절
+  z-index: 10;
+}
+
 
 .section4 {
   background-color: blue;
