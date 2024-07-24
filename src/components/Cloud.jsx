@@ -25,26 +25,26 @@ export default function Cloud() {
             gsap.set(cloud, {
                 xPercent: -50,
                 left: `${(index + 1) * 10}%`,
-                bottom: `-${20 + Math.random() * 10}%`,
+                bottom: "-20%",
                 position: "absolute",
                 zIndex: 10 + index,
                 scale: 1 + (index % 3) * 0.1,
-                rotation: Math.random() * 20 - 10
+                rotation: (index % 2 === 0) ? 5 : -5  // 짝수 인덱스는 5도, 홀수 인덱스는 -5도 회전
             });
         });
 
         // 스크롤 애니메이션 설정
         clouds.forEach((cloud, index) => {
             gsap.to(cloud, {
-                y: `-${100 + Math.random() * 100}%`,
-                opacity: 1,
+                y: `-${100 + index * 20}%`,  // 인덱스에 따라 조금씩 다른 높이로 이동
+                opacity: 0,
                 scale: 0.8,
                 scrollTrigger: {
                     trigger: cloud,
-                    start: "top -30%",
-                    end: "top top-=400",
+                    start: `top ${-30 - index * 5}%`,  // 인덱스에 따라 시작 지점을 조금씩 다르게 설정
+                    end: `top ${20 - index * 5}%`,
                     scrub: 1,
-                    markers: true, // 디버깅을 위해 마커를 표시할 수 있습니다.
+                    markers: true, // 디버깅을 위해 마커를 표시합니다.
                 }
             });
         });

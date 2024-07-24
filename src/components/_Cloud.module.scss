@@ -1,3 +1,4 @@
+// Cloud.module.scss
 @import '../styles/utils/mixins';
 @import '../styles/utils/variables';
 
@@ -8,10 +9,28 @@
   right: 0;
   height: 100vh;
   z-index: 10;
+
+  @include mobile {
+    height: 50vh;
+  }
+
+  @include tablet {
+    height: 70vh;
+  }
 }
 
 .cloud {
   position: absolute;
   max-width: 100%;
   height: auto;
+
+  @include mobile {
+    max-width: 120%;
+    left: -10%;
+  }
+
+  @include tablet {
+    max-width: 110%;
+    left: -5%;
+  }
 }

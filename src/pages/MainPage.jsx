@@ -44,16 +44,6 @@ export default function MainPage(){
         const carSide = carSideRef.current;
         const titleText = titleRef.current;
 
-        // goldWheel 초기 위치상태설정
-
-
-
-
-
-
-
-
-
         ScrollTrigger.create({
             trigger: section3Container,
             start: "top top",
