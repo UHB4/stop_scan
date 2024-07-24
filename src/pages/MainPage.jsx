@@ -4,30 +4,24 @@ import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from './_MainPage.module.scss';
 import Section2 from '../components/Section2';
+import Cloud from '../components/Cloud';
 
 
 
 // 이미지 임포트
 import cloudBg2 from '../assets/main/cloudBg2.png'
 import carRightSide from '../assets/main/car/carRightSide.png'
-import cloud1 from '../assets/main/cloud/cloud1.png'
-import cloud2 from '../assets/main/cloud/cloud2.png'
-import cloud3 from '../assets/main/cloud/cloud3.png'
-import cloud4 from '../assets/main/cloud/cloud3.png'
+
 
 export default function MainPage(){
     gsap.registerPlugin(ScrollTrigger);
     const section3Ref = useRef(null);
     const carSideRef = useRef(null);
-    const cloudRef1 = useRef(null);
-    const cloudRef2 = useRef(null);
-    const cloudRef3 = useRef(null);
-    const cloudRef4 = useRef(null);
     const titleRef = useRef(null);
     const [imagesLoaded , setImagesLoaded] = useState(false);
 
     useEffect(() => {
-        const imageUrls = [ cloudBg2, carRightSide, cloud1];
+        const imageUrls = [ cloudBg2, carRightSide];
         let loadedImages = 0;
 
         imageUrls.forEach((url) => {
@@ -48,45 +42,12 @@ export default function MainPage(){
         const section3Container = document.querySelector(`.${styles.section3Container}`);
         const section3 = section3Ref.current;
         const carSide = carSideRef.current;
-        const cloud1 = cloudRef1.current;
-        const cloud2 = cloudRef2.current;
-        const cloud3 = cloudRef3.current;
-        const cloud4 = cloudRef4.current;
         const titleText = titleRef.current;
 
         // goldWheel 초기 위치상태설정
 
 
-        // cloud1,2,3 초기위치 설정
-        gsap.set(cloud1, {
-            xPercent: -50,
-            left: "50%",
-            bottom: "-20%",
-            position: "absolute",
-            zindex: 10
-        });
-        gsap.set(cloud2, {
-            xPercent: -50,
-            left: "50%",
-            bottom: "-20%",
-            position: "absolute",
-            zindex: 11
-        });
-        gsap.set(cloud3, {
-            xPercent: -50,
-            left: "80%",
-            bottom: "-10%",
-            position: "absolute",
-            zindex: 12
-        });
 
-        gsap.set(cloud4, {
-            xPercent: -50,
-            left: "15%",
-            bottom: "-10%",
-            position: "absolute",
-            zindex: 12
-        });
 
 
 
@@ -129,15 +90,7 @@ export default function MainPage(){
             }
         );
 
-        // // STOP SCAN 텍스트에 흔들리는 효과 추가
-        // gsap.to(titleText, {
-        //     y: '+=10',
-        //     rotation: 0.5,
-        //     duration: 1,
-        //     repeat: -1,
-        //     yoyo: true,
-        //     ease: "sine.inOut"
-        // });
+
 
         return () => {
             ScrollTrigger.getAll().forEach(t => t.kill());
@@ -155,33 +108,9 @@ export default function MainPage(){
                 <Section2
                     gsap={gsap}
                     ScrollTrigger={ScrollTrigger}
-                    imagesLoaded={imagesLoaded}
                     />
                 <div className={styles.cloudContainer}>
-                    <img
-                        ref={cloudRef1}
-                        src={cloud1}
-                        alt='cloud1'
-                        className={styles.cloud}
-                    />
-                    <img
-                        ref={cloudRef2}
-                        src={cloud2}
-                        alt='cloud2'
-                        className={styles.cloud}
-                    />
-                    <img
-                        ref={cloudRef3}
-                        src={cloud3}
-                        alt='cloud1'
-                        className={styles.cloud}
-                    />
-                    <img
-                        ref={cloudRef4}
-                        src={cloud4}
-                        alt='cloud4'
-                        className={styles.cloud}
-                    />
+                  <Cloud gsap={gsap}/>
                 </div>
             </div>
 

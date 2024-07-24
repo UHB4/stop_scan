@@ -1,0 +1,17 @@
+@import '../styles/utils/mixins';
+@import '../styles/utils/variables';
+
+.cloudContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  z-index: 10;
+}
+
+.cloud {
+  position: absolute;
+  max-width: 100%;
+  height: auto;
+}
