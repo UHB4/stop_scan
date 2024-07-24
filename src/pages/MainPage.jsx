@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from './_MainPage.module.scss';
-import cloudBg from '../assets/main/cloudBg.jpeg'
-import goldWheel from '../assets/main/goldWheel.png'
+import Section2 from '../components/Section2';
+
+
+
+// 이미지 임포트
 import cloudBg2 from '../assets/main/cloudBg2.png'
-import car115Angle from '../assets/main/car/car115Angle.png'
 import carRightSide from '../assets/main/car/carRightSide.png'
 import cloud1 from '../assets/main/cloud/cloud1.png'
 import cloud2 from '../assets/main/cloud/cloud2.png'
@@ -15,8 +17,6 @@ import cloud4 from '../assets/main/cloud/cloud3.png'
 
 export default function MainPage(){
     gsap.registerPlugin(ScrollTrigger);
-    const wheelRef = useRef(null);
-    const section2Ref = useRef(null);
     const section3Ref = useRef(null);
     const carSideRef = useRef(null);
     const cloudRef1 = useRef(null);
@@ -27,7 +27,7 @@ export default function MainPage(){
     const [imagesLoaded , setImagesLoaded] = useState(false);
 
     useEffect(() => {
-        const imageUrls = [cloudBg, goldWheel, cloudBg2, carRightSide, cloud1];
+        const imageUrls = [ cloudBg2, carRightSide, cloud1];
         let loadedImages = 0;
 
         imageUrls.forEach((url) => {
@@ -45,11 +45,8 @@ export default function MainPage(){
     useEffect(() => {
         if (!imagesLoaded) return;
 
-        const section2Container = document.querySelector(`.${styles.section2Container}`);
         const section3Container = document.querySelector(`.${styles.section3Container}`);
-        const section2 = section2Ref.current;
         const section3 = section3Ref.current;
-        const wheel = wheelRef.current;
         const carSide = carSideRef.current;
         const cloud1 = cloudRef1.current;
         const cloud2 = cloudRef2.current;
@@ -58,13 +55,7 @@ export default function MainPage(){
         const titleText = titleRef.current;
 
         // goldWheel 초기 위치상태설정
-        gsap.set(wheel, {
-            xPercent: -50,
-            yPercent: -50,
-            left: "50%",
-            top: "50%",
-            position: "absolute"
-        });
+
 
         // cloud1,2,3 초기위치 설정
         gsap.set(cloud1, {
@@ -98,31 +89,9 @@ export default function MainPage(){
         });
 
 
-        ScrollTrigger.create({
-            trigger: section2Container,
-            start: "top top",
-            end: "bottom bottom",
-            pin: section2,
-            pinSpacing: false,
-        });
 
-        gsap.to(wheel, {
-            rotation: 120,
-            scrollTrigger: {
-                trigger: section2Container,
-                start: "top top",
-                end: "bottom top",
-                scrub: 1,
-            }
-        });
 
-        gsap.to(wheel, {
-            y: -20,
-            repeat: -1,
-            yoyo: true,
-            duration: 1,
-            ease: 'power2.inOut',
-        });
+
 
         ScrollTrigger.create({
             trigger: section3Container,
@@ -146,7 +115,7 @@ export default function MainPage(){
         );
 
         gsap.fromTo(titleText,
-            { x: '-100%', y: '30%', opacity: 1 },
+            { x: '-150%', y: '30%', opacity: 1 },
             {
                 x: '0%',
                 opacity: 1,
@@ -183,18 +152,11 @@ export default function MainPage(){
     return (
         <div className={styles.mainPage}>
             <div className={styles.section2Container}>
-
-                <div ref={section2Ref} className={styles.section2}>
-                    <img src={cloudBg} alt="cloudBg" className={styles.cloudBg}/>
-                    <div className={styles.wheelContainer}>
-                        <img
-                            ref={wheelRef}
-                            src={goldWheel}
-                            alt='goldWheel'
-                            className={styles.goldWheel}
-                        />
-                    </div>
-                </div>
+                <Section2
+                    gsap={gsap}
+                    ScrollTrigger={ScrollTrigger}
+                    imagesLoaded={imagesLoaded}
+                    />
                 <div className={styles.cloudContainer}>
                     <img
                         ref={cloudRef1}
