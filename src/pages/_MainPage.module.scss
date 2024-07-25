@@ -18,7 +18,13 @@ html, body {
   }
     .section1 {
       background-image: url(../assets/main/cloudBg.jpeg);
-      object-fit: cover;
+      background-size: cover;
+      .wheel{
+        background-image: url(../assets/main/goldWheel.png);
+        background-size: cover;
+        width: 400px;
+        height: 400px;
+      }
     }
 }
 
