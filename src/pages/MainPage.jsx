@@ -4,7 +4,7 @@ import Section1 from '../components/Section1';
 import Cloud from '../components/Cloud';
 import Header from '../components/Header';
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {ScrollTrigger} from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,14 +14,16 @@ export default function MainPage() {
     const carRRef = useRef(null);
     const titleRef = useRef(null);
     const [showHeader, setShowHeader] = useState(false);
+    const car115Ref = useRef(null);
 
     useEffect(() => {
         const section1 = section1Ref.current;
         const section2 = section2Ref.current;
         const carRside = carRRef.current;
         const titleText = titleRef.current;
+        const car115Angle = car115Ref.current;
 
-        if (section1 && section2 && carRside && titleText) {
+        if (section1 && section2 && carRside && titleText && car115Angle) {
             const section1EndTrigger = ScrollTrigger.create({
                 trigger: section1,
                 start: "top top",
@@ -33,18 +35,17 @@ export default function MainPage() {
                 scrollTrigger: {
                     trigger: section2,
                     start: "top top",
-                    end: "+=2800",
+                    end: "+=2200",
                     scrub: true,
                     pin: true,
                     anticipatePin: 1,
-                    markers: true,
                     onEnter: () => section1EndTrigger.disable(),
                 }
             });
 
             mainTimeline.fromTo(carRside,
-                { x: '-300%', y: '15%' },
-                { x: '280%', duration: 1 }
+                {x: '-300%', y: '15%'},
+                {x: '280%', duration: 1}
             );
 
             mainTimeline.fromTo(titleText,
@@ -75,7 +76,6 @@ export default function MainPage() {
                 color: "#CFEAF2",
             });
 
-
             mainTimeline.to(titleText, {
                 y: '-48vh',
                 scale: 0.1,
@@ -96,22 +96,27 @@ export default function MainPage() {
                     });
                 }
             });
+
             mainTimeline.to(titleText, {
                 y: '-45vh',
                 opacity: 0
             });
+
+            // car115Angle 애니메이션을 if 문 안으로 이동
+            mainTimeline.fromTo(car115Angle,
+                {x: '160%'}, // 시작 위치를 퍼센트로 변경
+                {x: '61%', y:"185%", duration: 1 ,rotation:"20"} // 끝 위치와 지속 시간 추가
+            );
         }
 
         return () => {
             ScrollTrigger.getAll().forEach(trigger => trigger.kill());
         };
-    }, []);
-
-    return (
+    }, []);    return (
         <>
-            {showHeader && <Header text="STOP SCAN" />}
+            {showHeader && <Header text="STOP SCAN"/>}
             <main className={styles.content}>
-                <Section1 ref={section1Ref} />
+                <Section1 ref={section1Ref}/>
                 <section ref={section2Ref} className={`${styles.stopscanItems} ${styles.section2}`}>
                     <div className={styles.cloudContainer}>
                         <Cloud gsap={gsap}/>
@@ -120,6 +125,7 @@ export default function MainPage() {
                     <div ref={titleRef} className={styles.titleText}>
                         STOP SCAN
                     </div>
+                    <div ref={car115Ref} className={styles.car115Angle}></div>
                 </section>
                 <section className={`${styles.stopscanItems} ${styles.section3}`}></section>
                 <section className={`${styles.stopscanItems} ${styles.section4}`}></section>
