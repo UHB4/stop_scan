@@ -21,6 +21,7 @@ html, body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+
     .wheel {
       background-image: url(../assets/main/goldWheel.png);
       background-size: cover;
@@ -30,9 +31,11 @@ html, body {
   }
 }
 
-.section2 { background-image: url(../assets/main/cloudBg2.png);
-            background-size: cover;
-  .carRSide{
+.section2 {
+  background-image: url(../assets/main/cloudBg2.png);
+  background-size: cover;
+
+  .carRSide {
     background-image: url(../assets/main/car/carRightSide.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -45,21 +48,44 @@ html, body {
     position: absolute;
 
   }
+
   .titleText {
     position: absolute;
     font-size: 26rem;
     font-weight: bold;
     color: $background-light;
-    text-shadow: 2px 2px 4px rgba(0,0,0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     white-space: nowrap;
     z-index: 1;
   }
 
 }
-.section3 { background-color: #0b51e5; }
-.section4 { background-color: #4b4a4a; }
-.section5 { background-color: #485244; }
-.section6 { background-color: #34a134; }
-.section7 { background-color: #38c8fa; }
-.section8 { background-color: #f3f3f3; }
-.section9 { background-color: #d3d3d3; }
+
+.section3 {
+  background-image: url("../assets/main/cloudBg3.png");
+  background-size: cover;
+}
+
+.section4 {
+  background-color: #78CFE0;
+}
+
+.section5 {
+  background-color: #78CFE0;
+}
+
+.section6 {
+  background-color: #78CFE0;
+}
+
+.section7 {
+  background-color: #78CFE0;
+}
+
+.section8 {
+  background-color: #78CFE0;
+}
+
+.section9 {
+  background-color: #78CFE0;
+}

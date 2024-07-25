@@ -2,9 +2,9 @@ import React, {useEffect, useRef, useState} from 'react';
 import styles from './_MainPage.module.scss';
 import Section1 from '../components/Section1';
 import Cloud from '../components/Cloud';
+import Header from '../components/Header';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Header from '../components/Header';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,8 +13,7 @@ export default function MainPage() {
     const section2Ref = useRef(null);
     const carRRef = useRef(null);
     const titleRef = useRef(null);
-    const headerRef = useRef(null);
-
+    const [showHeader, setShowHeader] = useState(false);
 
     useEffect(() => {
         const section1 = section1Ref.current;
@@ -22,9 +21,7 @@ export default function MainPage() {
         const carRside = carRRef.current;
         const titleText = titleRef.current;
 
-
         if (section1 && section2 && carRside && titleText) {
-            // Section1의 애니메이션 끝나는 지점을 트리거로 사용
             const section1EndTrigger = ScrollTrigger.create({
                 trigger: section1,
                 start: "top top",
@@ -32,7 +29,6 @@ export default function MainPage() {
                 scrub: true,
             });
 
-            // Section2의 전체 애니메이션
             const mainTimeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: section2,
@@ -46,13 +42,11 @@ export default function MainPage() {
                 }
             });
 
-            // 차 애니메이션
             mainTimeline.fromTo(carRside,
                 { x: '-300%', y: '15%' },
                 { x: '280%', duration: 1 }
             );
 
-            // 텍스트 애니메이션
             mainTimeline.fromTo(titleText,
                 {
                     x: '-130%',
@@ -70,36 +64,43 @@ export default function MainPage() {
                     duration: 1,
                     ease: "power2.out"
                 },
-                "<0.1" // 차 애니메이션 시작 0.1초 후에 시작
+                "<0.1"
             );
-            mainTimeline.to(titleText,{
+
+            mainTimeline.to(titleText, {
                 y: '-20vh',
                 scale: 1.3,
                 duration: 1,
                 ease: "power1.in",
                 color: "#CFEAF2",
-            })
+            });
 
-            mainTimeline.to(titleText,{
+
+            mainTimeline.to(titleText, {
                 y: '-48vh',
                 scale: 0.1,
                 duration: 1,
-                color: "#ffffff"
-
-            })
-
-
-
-
-
-
-
-            // 텍스트 흔들림 효과
-
+                color: "#ffffff",
+                onComplete: () => {
+                    ScrollTrigger.create({
+                        trigger: section2,
+                        start: "top top",
+                        end: "bottom bottom",
+                        onUpdate: (self) => {
+                            if (self.progress > 0.7 && self.direction > 0) {
+                                setShowHeader(true);
+                            } else if (self.progress <= 0.7 || self.direction < 0) {
+                                setShowHeader(false);
+                            }
+                        }
+                    });
+                }
+            });
+            mainTimeline.to(titleText, {
+                y: '-45vh',
+                opacity: 0
+            });
         }
-
-
-
 
         return () => {
             ScrollTrigger.getAll().forEach(trigger => trigger.kill());
@@ -107,25 +108,27 @@ export default function MainPage() {
     }, []);
 
     return (
-        <main className={styles.content}>
-            {/*{<Header ref ={headerRef} text="STOP SCAN"/>}*/}
-            <Section1 ref={section1Ref} />
-            <section ref={section2Ref} className={`${styles.stopscanItems} ${styles.section2}`}>
-                <div className={styles.cloudContainer}>
-                    <Cloud gsap={gsap}/>
-                </div>
-                <div ref={carRRef} className={styles.carRSide}></div>
-                <div ref={titleRef} className={styles.titleText}>
-                    STOP SCAN
-                </div>
-            </section>
-            <section className={`${styles.stopscanItems} ${styles.section3}`}></section>
-            <section className={`${styles.stopscanItems} ${styles.section4}`}></section>
-            <section className={`${styles.stopscanItems} ${styles.section5}`}></section>
-            <section className={`${styles.stopscanItems} ${styles.section6}`}></section>
-            <section className={`${styles.stopscanItems} ${styles.section7}`}></section>
-            <section className={`${styles.stopscanItems} ${styles.section8}`}></section>
-            <section className={`${styles.stopscanItems} ${styles.section9}`}></section>
-        </main>
+        <>
+            {showHeader && <Header text="STOP SCAN" />}
+            <main className={styles.content}>
+                <Section1 ref={section1Ref} />
+                <section ref={section2Ref} className={`${styles.stopscanItems} ${styles.section2}`}>
+                    <div className={styles.cloudContainer}>
+                        <Cloud gsap={gsap}/>
+                    </div>
+                    <div ref={carRRef} className={styles.carRSide}></div>
+                    <div ref={titleRef} className={styles.titleText}>
+                        STOP SCAN
+                    </div>
+                </section>
+                <section className={`${styles.stopscanItems} ${styles.section3}`}></section>
+                <section className={`${styles.stopscanItems} ${styles.section4}`}></section>
+                <section className={`${styles.stopscanItems} ${styles.section5}`}></section>
+                <section className={`${styles.stopscanItems} ${styles.section6}`}></section>
+                <section className={`${styles.stopscanItems} ${styles.section7}`}></section>
+                <section className={`${styles.stopscanItems} ${styles.section8}`}></section>
+                <section className={`${styles.stopscanItems} ${styles.section9}`}></section>
+            </main>
+        </>
     );
 }
