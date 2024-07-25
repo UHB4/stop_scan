@@ -11,11 +11,13 @@ export default function MainPage() {
     const section1Ref = useRef(null);
     const section2Ref = useRef(null);
     const carRRef = useRef(null);
+    const titleRef = useRef(null);
 
     useEffect(() => {
         const section1 = section1Ref.current;
         const section2 = section2Ref.current;
         const carRside = carRRef.current;
+        const titleText = titleRef.current;
 
         if (section1 && section2 && carRside) {
             // Section1의 애니메이션 끝나는 지점을 트리거로 사용
@@ -60,6 +62,9 @@ export default function MainPage() {
                     <Cloud gsap={gsap}/>
                 </div>
                 <div ref={carRRef} className={styles.carRSide}></div>
+                <div ref={titleRef} className={styles.titleText}>
+                    STOP SCAN
+                </div>
             </section>
             <section className={`${styles.stopscanItems} ${styles.section3}`}></section>
             <section className={`${styles.stopscanItems} ${styles.section4}`}></section>
