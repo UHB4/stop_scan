@@ -5,7 +5,7 @@ import styles from './_MainPage.module.scss';
 
 
 export default function MainPage() {
-    const section1Ref = 
+    const section1Ref = useRef(null)
 
     return (
         <main className={styles.content}>
