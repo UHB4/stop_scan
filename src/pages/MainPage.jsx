@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './_MainPage.module.scss';
 import Section1 from '../components/Section1';
+import Cloud from '../components/Cloud';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -55,6 +56,9 @@ export default function MainPage() {
         <main className={styles.content}>
             <Section1 ref={section1Ref} />
             <section ref={section2Ref} className={`${styles.stopscanItems} ${styles.section2}`}>
+                <div className={styles.cloudContainer}>
+                    <Cloud gsap={gsap}/>
+                </div>
                 <div ref={carRRef} className={styles.carRSide}></div>
             </section>
             <section className={`${styles.stopscanItems} ${styles.section3}`}></section>
