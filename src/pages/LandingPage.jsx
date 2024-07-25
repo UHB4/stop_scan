@@ -68,7 +68,7 @@ export default function LandingPage() {
     }, [isRotating, navigate]);
     return (
         <div className={styles.landingPage}>
-            <div className={styles.section1}>
+            <section className={styles.section}>
                 <div className={styles.holeBox}>
                     <img ref={imgRef}
                          src={keyHole}
@@ -76,7 +76,7 @@ export default function LandingPage() {
                          style={{ cursor: 'pointer' }}
                     />
                 </div>
-            </div>
+            </section>
         </div>
     );
 }

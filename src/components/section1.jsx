@@ -1,9 +1,9 @@
 import React, { useEffect, useRef,useState } from 'react';
-import styles from './_Section2.module.scss';
+import styles from './_Section1.module.scss';
 import cloudBg from '../assets/main/cloudBg.jpeg';
 import goldWheel from '../assets/main/goldWheel.png';
 
-export default function Section2({ gsap, ScrollTrigger }) {
+export default function Section1({ gsap, ScrollTrigger }) {
     const wheelRef = useRef(null);
     const section2Ref = useRef(null);
 
@@ -52,8 +52,8 @@ export default function Section2({ gsap, ScrollTrigger }) {
 
     }, [gsap, ScrollTrigger]);
     return (
-        <div className={styles.section2Container}>
-            <div className={styles.section2}>
+        <div className={styles.section1Container}>
+            <div className={styles.section1}>
                 <img src={cloudBg} alt="cloudBg" className={styles.cloudBg}/>
                 <div className={styles.wheelContainer}>
                     <img

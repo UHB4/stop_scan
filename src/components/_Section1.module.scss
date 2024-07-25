@@ -1,12 +1,12 @@
-// _Section2.module.scss
+// _section1.module.scss
 @import '../styles/utils/mixins';
 @import '../styles/utils/variables';
 
-.section2Container {
+.section1Container {
   .cloudBg  {
     @include fullBg
   }
-  .section2 {
+  .section1 {
     position: relative;
     height: 100vh;
     .wheelContainer {

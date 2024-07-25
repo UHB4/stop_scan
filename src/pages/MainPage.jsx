@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from './_MainPage.module.scss';
-import Section2 from '../components/Section2';
+import Section1 from '../components/section1';
 import Cloud from '../components/Cloud';
 import Header from '../components/Header';
 
@@ -12,7 +12,7 @@ import carRightSide from '../assets/main/car/carRightSide.png'
 
 export default function MainPage() {
     gsap.registerPlugin(ScrollTrigger);
-    const section3Ref = useRef(null);
+    const section2Ref = useRef(null);
     const carSideRef = useRef(null);
     const titleRef = useRef(null);
     const headerRef = useRef(null);
@@ -38,17 +38,17 @@ export default function MainPage() {
     useEffect(() => {
         if (!imagesLoaded) return;
 
-        const section3Container = document.querySelector(`.${styles.section3Container}`);
-        const section3 = section3Ref.current;
+        const section2Container = document.querySelector(`.${styles.section2Container}`);
+        const section2 = section2Ref.current;
         const carSide = carSideRef.current;
         const titleText = titleRef.current;
         const header = headerRef.current;
 
         ScrollTrigger.create({
-            trigger: section3Container,
+            trigger: section2Container,
             start: "top top",
             end: "bottom top",
-            pin: section3,
+            pin: section2,
             pinSpacing: false,
         });
 
@@ -57,9 +57,11 @@ export default function MainPage() {
             {
                 x: '230%',
                 scrollTrigger: {
-                    trigger: section3Container,
+                    trigger: section2,
                     start: "top top",
                     end: "bottom top",
+                    pin: section2,
+                    pinSpacing: false,
                     scrub: 1,
                 }
             }
@@ -71,7 +73,7 @@ export default function MainPage() {
                 x: '0%',
                 opacity: 1,
                 scrollTrigger: {
-                    trigger: section3Container,
+                    trigger: section2Container,
                     start: "top top",
                     end: "bottom top",
                     scrub: 1,
@@ -83,7 +85,7 @@ export default function MainPage() {
         // New animation for the title text and header
         const tl = gsap.timeline({
             scrollTrigger: {
-                trigger: section3Container,
+                trigger: section2Container,
                 start: "bottom top",
                 end: "bottom -100%",
                 scrub: 1,
@@ -119,18 +121,18 @@ export default function MainPage() {
     }
 
     return (
-        <div className={styles.mainPage}>
-            {showHeader && <Header ref={headerRef} text="STOP SCAN" />}
-            <div className={styles.section2Container}>
-                <Section2 gsap={gsap} ScrollTrigger={ScrollTrigger} />
+        <main className={styles.mainPage}>
+            {showHeader && <Header ref={headerRef} text="STOP SCAN"/>}
+            <div className={styles.section1Container}>
+                <Section1 gsap={gsap} ScrollTrigger={ScrollTrigger}/>
                 <div className={styles.cloudContainer}>
-                    <Cloud gsap={gsap} />
+                    <Cloud gsap={gsap}/>
                 </div>
             </div>
 
-            <div className={styles.section3Container}>
-                <div ref={section3Ref} className={styles.section3}>
-                    <img src={cloudBg2} alt='cloudBg2' className={styles.cloudBg2} />
+            <div className={styles.section2Container}>
+                <section ref={section2Ref} className={`${styles.section2} ${styles.stopscanItems}`}>
+                    <img src={cloudBg2} alt='cloudBg2' className={styles.cloudBg2}/>
                     <div className={styles.carContainer}>
                         <img
                             ref={carSideRef}
@@ -142,13 +144,13 @@ export default function MainPage() {
                             STOP SCAN
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
-            <div className={styles.section4}></div>
-            <div className={styles.section5}></div>
-            <div className={styles.section6}></div>
-            <div className={styles.section7}></div>
-            <div className={styles.section8}></div>
-        </div>
+            <section className={`${styles.section3} ${styles.stopscanItems}`}></section>
+            <section className={`${styles.section4} ${styles.stopscanItems}`}></section>
+            <section className={`${styles.section5} ${styles.stopscanItems}`}></section>
+            <section className={`${styles.section6} ${styles.stopscanItems}`}></section>
+            <section className={`${styles.section3} ${styles.stopscanItems}`}></section>
+        </main>
     )
 }
