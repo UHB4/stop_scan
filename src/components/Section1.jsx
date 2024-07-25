@@ -15,7 +15,7 @@ const Section1 = forwardRef((props, ref) => {
         const wheelRotate = gsap.timeline();
         wheelRotate.to(wheel, {
             rotation: 120,
-            duration: 1,
+            duration: 2,
             ease: 'none',
         });
 

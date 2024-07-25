@@ -19,17 +19,17 @@ export default function MainPage() {
         const carRside = carRRef.current;
         const titleText = titleRef.current;
 
-        if (section1 && section2 && carRside) {
+        if (section1 && section2 && carRside && titleText) {
             // Section1의 애니메이션 끝나는 지점을 트리거로 사용
             const section1EndTrigger = ScrollTrigger.create({
                 trigger: section1,
                 start: "top top",
-                end: "+=800",  // Section1의 end 값과 일치시킴
+                end: "+=800",
                 scrub: true,
             });
 
-            // Section2의 carMove 애니메이션
-            const carMove1 = gsap.timeline({
+            // Section2의 carMove와 텍스트 애니메이션
+            const mainTimeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: section2,
                     start: "top top",
@@ -38,15 +38,45 @@ export default function MainPage() {
                     pin: true,
                     anticipatePin: 1,
                     markers: true,
-                    // Section1의 애니메이션이 끝난 후에 시작
                     onEnter: () => section1EndTrigger.disable(),
                 }
             });
 
-            carMove1.fromTo(carRside,
-                { x: '-300%', y: '50%' },
+            // 차 애니메이션
+            mainTimeline.fromTo(carRside,
+                { x: '-300%', y: '15%' },
                 { x: '280%', duration: 1 }
             );
+
+            // 텍스트 애니메이션
+            mainTimeline.fromTo(titleText,
+                {
+                    x: '-130%',
+                    y: '0%',
+                    opacity: 0.5,
+                    scale: 0.5,
+                    filter: 'blur(5px)'
+                },
+                {
+                    x: '0%',
+                    y: '0%',
+                    opacity: 1,
+                    scale: 1,
+                    filter: 'blur(0px)',
+                    duration: 1,
+                    ease: "power2.out"
+                },
+                "<0.1" // 차 애니메이션 시작 0.1초 후에 시작
+            );
+
+            // 텍스트 흔들림 효과
+            gsap.to(titleText, {
+                y: '+=10',
+                yoyo: true,
+                repeat: -1,
+                duration: 0.5,
+                ease: "sine.inOut"
+            });
         }
 
         return () => {

@@ -19,6 +19,8 @@ html, body {
   .section1 {
     background-image: url(../assets/main/cloudBg.jpeg);
     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     .wheel {
       background-image: url(../assets/main/goldWheel.png);
       background-size: cover;
@@ -32,10 +34,27 @@ html, body {
             background-size: cover;
   .carRSide{
     background-image: url(../assets/main/car/carRightSide.png);
-    background-size: cover;
-    width: 400px;
-    height: 200px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40vw; // 뷰포트 너비의 40%
+    height: 22vw; // 뷰포트 너비의 22% (기존 비율 유지)
+    max-width: 550px; // 최대 너비 설정
+    max-height: 300px; // 최대 높이 설정
+    aspect-ratio: 550 / 300; // 원본 이미지의 비율 유지
+    position: absolute;
+
   }
+  .titleText {
+    position: absolute;
+    font-size: 26rem;
+    font-weight: bold;
+    color: $background-light;
+    text-shadow: 2px 2px 4px rgba(0,0,0, 0.5);
+    white-space: nowrap;
+    z-index: 1;
+  }
+
 }
 .section3 { background-color: #0b51e5; }
 .section4 { background-color: #4b4a4a; }
