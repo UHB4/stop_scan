@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styles from './_MainPage.module.scss';
 import Section1 from '../components/Section1';
 import Cloud from '../components/Cloud';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Header from '../components/Header';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,12 +13,15 @@ export default function MainPage() {
     const section2Ref = useRef(null);
     const carRRef = useRef(null);
     const titleRef = useRef(null);
+    const headerRef = useRef(null);
+
 
     useEffect(() => {
         const section1 = section1Ref.current;
         const section2 = section2Ref.current;
         const carRside = carRRef.current;
         const titleText = titleRef.current;
+
 
         if (section1 && section2 && carRside && titleText) {
             // Section1의 애니메이션 끝나는 지점을 트리거로 사용
@@ -28,12 +32,12 @@ export default function MainPage() {
                 scrub: true,
             });
 
-            // Section2의 carMove와 텍스트 애니메이션
+            // Section2의 전체 애니메이션
             const mainTimeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: section2,
                     start: "top top",
-                    end: "+=1800",
+                    end: "+=2800",
                     scrub: true,
                     pin: true,
                     anticipatePin: 1,
@@ -68,16 +72,34 @@ export default function MainPage() {
                 },
                 "<0.1" // 차 애니메이션 시작 0.1초 후에 시작
             );
+            mainTimeline.to(titleText,{
+                y: '-20vh',
+                scale: 1.3,
+                duration: 1,
+                ease: "power1.in",
+                color: "#CFEAF2",
+            })
+
+            mainTimeline.to(titleText,{
+                y: '-48vh',
+                scale: 0.1,
+                duration: 1,
+                color: "#ffffff"
+
+            })
+
+
+
+
+
+
 
             // 텍스트 흔들림 효과
-            gsap.to(titleText, {
-                y: '+=10',
-                yoyo: true,
-                repeat: -1,
-                duration: 0.5,
-                ease: "sine.inOut"
-            });
+
         }
+
+
+
 
         return () => {
             ScrollTrigger.getAll().forEach(trigger => trigger.kill());
@@ -86,6 +108,7 @@ export default function MainPage() {
 
     return (
         <main className={styles.content}>
+            {/*{<Header ref ={headerRef} text="STOP SCAN"/>}*/}
             <Section1 ref={section1Ref} />
             <section ref={section2Ref} className={`${styles.stopscanItems} ${styles.section2}`}>
                 <div className={styles.cloudContainer}>
