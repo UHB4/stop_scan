@@ -71,7 +71,7 @@ html, body {
     background-repeat: no-repeat;
     background-position: center;
     width: 45vw; // 뷰포트 너비의 40%
-    height: 22vw; // 뷰포트 너비의 22%
+    height: 50vh; // 뷰포트 너비의 22%
     max-width: 650px; // 최대 너비 설정
     max-height: 600px; // 최대 높이 설정
     position: absolute;
@@ -87,10 +87,23 @@ html, body {
 
 .section4 {
   background-color: #78CFE0;
+  .car15Angle {
+    background-image: url("../assets/main/car/car15Angle.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 65vw;
+    height: 100vh; // 뷰포트 너비의 22%
+    max-width: 650px; // 최대 너비 설정
+    max-height: 600px; // 최대 높이 설정
+    z-index: 2000;
+  }
+
 }
 
 .section5 {
-  background-color: #78CFE0;
+  //background-color: #78CFE0;
+  background-color: red;
 }
 
 .section6 {

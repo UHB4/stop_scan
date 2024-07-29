@@ -11,18 +11,22 @@ gsap.registerPlugin(ScrollTrigger);
 export default function MainPage() {
     const section1Ref = useRef(null);
     const section2Ref = useRef(null);
+    const section4Ref = useRef(null);
     const carRRef = useRef(null);
     const titleRef = useRef(null);
     const [showHeader, setShowHeader] = useState(false);
     const car115Ref = useRef(null);
+    const car15Ref = useRef(null);
 
     useEffect(() => {
         console.log('useEffect 시작됨');
         const section1 = section1Ref.current;
         const section2 = section2Ref.current;
+        const section4 = section4Ref.current
         const carRside = carRRef.current;
         const titleText = titleRef.current;
         const car115Angle = car115Ref.current;
+        const car15Angle = car15Ref.current;
 
         if (section1 && section2 && carRside && titleText && car115Angle) {
             console.log('모든 ref가 사용 가능함');
@@ -61,7 +65,7 @@ export default function MainPage() {
             mainTimeline.fromTo(carRside,
                 {x: '-300%', y: '15%', autoAlpha: 1},
                 {
-                    x: '280%',
+                    x: '290%',
                     y: '15%',
                     duration: 7,
                     ease: "power1.inOut",
@@ -105,21 +109,11 @@ export default function MainPage() {
             car115Timeline.fromTo(car115Angle,
                 {  x: '60vw', y:'30vh' },
                 {
-                    x:'-250vw',
-                    y:'250vh' ,
+                    x:'-200vw',
+                    y:'260vh' ,
                     rotation: 35,
-                    duration: 1,
+                    duration: 7,
                     ease: "power1.inOut",
-                    // onStart: () => {
-                    //     console.log('car115Angle 애니메이션 시작');
-                    // },
-                    // onUpdate: function() {
-                    //     console.log('car115Angle 애니메이션 진행도:', this.progress());
-                    // },
-                    // onComplete: () => {
-                    //     console.log('car115Angle 애니메이션 완료');
-                    //     // gsap.set(car115Angle, {autoAlpha: 0, display: 'none'});
-                    // }
                 }
             );
 
@@ -137,6 +131,27 @@ export default function MainPage() {
                 }
             });
         }
+
+        const car15Timeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: section4,
+                pin: true,
+                start: "top top ", // 섹션의 중앙이 화면 중앙에 오면 시작
+                end: "+=1400", // 스크롤 2000px 동안 애니메이션 진행
+                scrub: true,
+            }
+        });
+
+        car15Timeline.fromTo(car15Angle,
+            {  x: '-80vw', y:'-40vh', rotation: 65 },
+            {
+                x:'300vw',
+                y:'200vh' ,
+                rotation: -55,
+                duration: 10,
+                ease: "power1.inOut",
+            }
+        )
 
         return () => {
             console.log('정리 함수 호출됨');
@@ -165,7 +180,11 @@ export default function MainPage() {
                         </div>
                     </section>
                     <section className={`${styles.stopscanItems} ${styles.section3}`}></section>
-                    <section className={`${styles.stopscanItems} ${styles.section4}`}></section>
+                    <section ref={section4Ref} className={`${styles.stopscanItems} ${styles.section4}`}>
+                        <div ref={car15Ref} className={styles.car15Angle}></div>
+
+
+                    </section>
                     <section className={`${styles.stopscanItems} ${styles.section5}`}></section>
                     <section className={`${styles.stopscanItems} ${styles.section6}`}></section>
                     <section className={`${styles.stopscanItems} ${styles.section7}`}></section>
