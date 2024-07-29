@@ -1,22 +1,14 @@
-// Cloud.module.scss
 @import '../styles/utils/mixins';
 @import '../styles/utils/variables';
 
 .cloudContainer {
   position: absolute;
-  bottom: 700px;
+  top: 0;
   left: 0;
   right: 0;
   height: 100vh;
   z-index: 10;
-
-  @include mobile {
-    height: 50vh;
-  }
-
-  @include tablet {
-    height: 70vh;
-  }
+  overflow: hidden;
 }
 
 .cloud {

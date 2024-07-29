@@ -27,12 +27,12 @@ export default function Cloud() {
             gsap.set(cloud, {
                 xPercent: -50,
                 left: `${(index + 1) * 10}%`,
-                bottom: "-20%",
+                top: "20%", // 뷰포트 하단에 위치
                 position: "absolute",
                 zIndex: 10 + index,
                 scale: 1 + (index % 3) * 0.1,
                 rotation: (index % 2 === 0) ? 5 : -5,
-                opacity: 1  // 초기에 투명하게 설정
+                opacity: 0 // 초기에 투명하게 설정
             });
         });
 
@@ -40,8 +40,8 @@ export default function Cloud() {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: container,
-                start: "top bottom",
-                end: "+=9000",
+                start: "top bottom", // 컨테이너의 상단이 뷰포트의 하단에 닿을 때 시작
+                end: "bottom top", // 컨테이너의 하단이 뷰포트의 상단에 닿을 때 종료
                 scrub: 1,
                 markers: true,
             }
@@ -50,12 +50,12 @@ export default function Cloud() {
         // 각 구름에 대한 애니메이션 추가
         clouds.forEach((cloud, index) => {
             tl.to(cloud, {
-                y: `-${100 + index * 20}%`,
+                top: "0%", // 뷰포트 상단으로 이동
                 opacity: 1,
                 scale: 0.8,
                 duration: 1,
                 ease: "power1.inOut"
-            }, index * 0.01);  // 각 구름의 애니메이션 시작을 0.2초씩 지연
+            }, index * 0.01); // 각 구름의 애니메이션 시작을 0.01초씩 지연
         });
 
     }, []);
