@@ -111,7 +111,7 @@ export default function MainPage() {
                     x:'-200vw',
                     y:'260vh' ,
                     rotation: 35,
-                    duration: 7,
+                    duration: 200,
                     ease: "power1.inOut",
                 }
             );
@@ -136,18 +136,19 @@ export default function MainPage() {
                 trigger: section4,
                 pin: true,
                 start: "top top ", // 섹션의 중앙이 화면 중앙에 오면 시작
-                end: "+=2500", // 스크롤 2000px 동안 애니메이션 진행
-                scrub: true,
+                end: "+=2800", // 스크롤 2000px 동안 애니메이션 진행
+                scrub: 1,
             }
         });
 
         car15Timeline.fromTo(car15Angle,
-            {  x: '-80vw', y:'-40vh', rotation: 65 },
+            {  x: '-80vw', y:'-40vh', rotation: 65, scale: 1.5 },
             {
                 x:'300vw',
                 y:'200vh' ,
-                rotation: -55,
-                duration: 10,
+                rotation: -35,
+                duration: 200,
+                scale: 2,
                 ease: "power1.inOut",
             }
         )
@@ -157,17 +158,17 @@ export default function MainPage() {
                 trigger: section5,
                 pin: true,
                 start: "top top ", // 섹션의 중앙이 화면 중앙에 오면 시작
-                end: "+=2500",
+                end: "+=4000",
                 scrub: true,
             }
         });
 
         car115TwoTimeline.fromTo(car115TwoAngle,
-            {  x: '80vw', y:'-60vh'},
+            {  x: '100vw', y:'-60vh'},
             {
                 x:'-300vw',
                 y:'200vh' ,
-                duration: 10,
+                duration: 200,
                 scale: 3,
                 ease: "power1.inOut",
             }
@@ -215,15 +216,38 @@ export default function MainPage() {
                                     <p>휴게소</p>
                                     <p>정보제공</p></div>
                             </div>
-
-
                         </div>
                     </section>
 
                     <section ref={section5Ref} className={`${styles.stopscanItems} ${styles.section5}`}>
                         <div ref={car115TwoRef} className={styles.car115TwoAngle}></div>
+                        <div className={styles.restWrapContent2}>
+                            <div className={styles.restContent2}>
+                                <div className={styles.txt2}>
+                                    <p>충전소</p>
+                                    <p>정보제공</p></div>
+                                <div className={styles.img2}>
+                                    <button type="button" className={styles.arrow}></button>
+                                </div>
+                            </div>
+
+
+                        </div>
+
                     </section>
-                    <section className={`${styles.stopscanItems} ${styles.section6}`}></section>
+                    <section className={`${styles.stopscanItems} ${styles.section6}`}>
+                        <div className={styles.restWrapContent}>
+                            <div className={styles.restContent}>
+                                <div className={styles.img}>
+                                    <button type="button" className={styles.arrow}></button>
+                                </div>
+                                <div className={styles.txt}>
+                                    <p>주유소</p>
+                                    <p>정보제공</p></div>
+                            </div>
+                        </div>
+
+                    </section>
                     <section className={`${styles.stopscanItems} ${styles.section7}`}></section>
                     <section className={`${styles.stopscanItems} ${styles.section8}`}></section>
                     <section className={`${styles.stopscanItems} ${styles.section9}`}></section>

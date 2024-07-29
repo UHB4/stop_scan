@@ -2,6 +2,7 @@
 @import '../styles/utils/variables';
 
 html, body {
+  @include ff-g;
   overflow-x: hidden;
 }
 
@@ -94,7 +95,7 @@ html, body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    width: 65vw;
+    width: 85vw;
     height: 100vh; // 뷰포트 너비의 22%
     max-width: 650px; // 최대 너비 설정
     max-height: 600px; // 최대 높이 설정
@@ -149,6 +150,7 @@ html, body {
       align-items: center;
       p{
         font-size: 4rem;
+        font-weight: 700;
         color: white;
         margin: 0;
         text-align: center;
@@ -158,8 +160,8 @@ html, body {
 }
 
 .section5 {
-  //background-color: #78CFE0;
-  background-color: red;
+  background-color: #78CFE0;
+  //background-color: red;
   .car115TwoAngle {
     background-image: url("../assets/main/car/car115Angle.png");
     background-size: contain;
@@ -173,10 +175,66 @@ html, body {
   }
 
 }
+.restWrapContent2 {
+  //background-color: black;
+  width: 100%;
+  height: 100vh; // 추가
+  position: absolute; // 추가
+  top: 0; // 추가
+  left: 0; // 추가
+  z-index: 1; // 추가
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .restContent2 {
+    //background-color: #545454;
+    width: 80%;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .img2 {
+      background-color: blue;
+      height: 70vh;
+      width: 50vw;
+      border-radius: 20px;
+      position: relative;
+      .arrow{
+        background: #548DEE url("../assets/arrowRight.svg") 50% 50% / 60px no-repeat;
+        width: 98px;
+        height: 98px;
+        border-radius: 100px;
+        position: absolute;
+        top: 43%;
+        left: 0;
+        transform: translateX(-50%);
+
+      }
+
+    }
+
+
+    .txt2{
+      //background-color: green;
+      width: 30vw;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      p{
+        font-size: 4rem;
+        font-weight: 700;
+        color: white;
+        margin: 0;
+        text-align: center;
+      }
+    }
+  }
+}
+
+
 
 .section6 {
-  //background-color: #78CFE0;
-  background-color: yellow;
+  background-color: #78CFE0;
 }
 
 .section7 {
