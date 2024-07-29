@@ -40,7 +40,7 @@ export default function Cloud({ position = 'top' }) {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: container,
-                start: position === 'top' ? "top bottom" : "top bottom",
+                start: position === 'top' ? "top 10%" : "top 10%",
                 end: position === 'top' ? "bottom top" : "bottom center",
                 scrub: 1,
                 markers: true,
@@ -53,7 +53,7 @@ export default function Cloud({ position = 'top' }) {
                 top: position === 'top' ? "-20%" : "80%", // 위치에 따라 최종 top 값 변경
                 opacity: 1,
                 scale: 0.8,
-                duration: 1,
+                duration: 6,
                 ease: "power1.inOut"
             }, index * 0.01); // 각 구름의 애니메이션 시작을 0.01초씩 지연
         });

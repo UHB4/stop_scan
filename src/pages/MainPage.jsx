@@ -63,7 +63,7 @@ export default function MainPage() {
                 {
                     x: '280%',
                     y: '15%',
-                    duration: 1,
+                    duration: 7,
                     ease: "power1.inOut",
                     onUpdate: function() {
                         console.log('carRside 애니메이션 진행도:', this.progress());
@@ -78,8 +78,8 @@ export default function MainPage() {
 
             // titleText 애니메이션
             mainTimeline.fromTo(titleText,
-                {x: '-130%', y: '0%', autoAlpha: 0.5, scale: 0.5, filter: 'blur(5px)'},
-                {x: '0%', y: '0%', autoAlpha: 1, scale: 1, filter: 'blur(0px)', duration: 1, ease: "power2.out"},
+                {x: '-400%', y: '0%', autoAlpha: 0.5, scale: 0.5, filter: 'blur(5px)'},
+                {x: '0%', y: '0%', autoAlpha: 1, scale: 1, filter: 'blur(0px)', duration: 8, ease: "power2.out"},
                 "<0.1"
             )
                 .to(titleText, {y: '-20vh', scale: 1.3, duration: 1, ease: "power1.in", color: "#CFEAF2"})
