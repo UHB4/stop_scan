@@ -12,21 +12,25 @@ export default function MainPage() {
     const section1Ref = useRef(null);
     const section2Ref = useRef(null);
     const section4Ref = useRef(null);
+    const section5Ref = useRef(null);
     const carRRef = useRef(null);
     const titleRef = useRef(null);
     const [showHeader, setShowHeader] = useState(false);
     const car115Ref = useRef(null);
     const car15Ref = useRef(null);
+    const car115TwoRef = useRef(null);
 
     useEffect(() => {
         console.log('useEffect 시작됨');
         const section1 = section1Ref.current;
         const section2 = section2Ref.current;
-        const section4 = section4Ref.current
+        const section4 = section4Ref.current;
+        const section5 = section5Ref.current;
         const carRside = carRRef.current;
         const titleText = titleRef.current;
         const car115Angle = car115Ref.current;
         const car15Angle = car15Ref.current;
+        const car115TwoAngle = car115TwoRef.current;
 
         if (section1 && section2 && carRside && titleText && car115Angle) {
             console.log('모든 ref가 사용 가능함');
@@ -153,6 +157,28 @@ export default function MainPage() {
             }
         )
 
+        const car115TwoTimeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: section5,
+                pin: true,
+                start: "top top ", // 섹션의 중앙이 화면 중앙에 오면 시작
+                end: "+=1400", // 스크롤 2000px 동안 애니메이션 진행
+                scrub: true,
+            }
+        });
+
+        car115TwoTimeline.fromTo(car115TwoAngle,
+            {  x: '80vw', y:'-60vh'},
+            {
+                x:'-300vw',
+                y:'200vh' ,
+                duration: 10,
+                scale: 3,
+                ease: "power1.inOut",
+            }
+        )
+
+
         return () => {
             console.log('정리 함수 호출됨');
             ScrollTrigger.getAll().forEach(trigger => trigger.kill());
@@ -180,12 +206,14 @@ export default function MainPage() {
                         </div>
                     </section>
                     <section className={`${styles.stopscanItems} ${styles.section3}`}></section>
+
                     <section ref={section4Ref} className={`${styles.stopscanItems} ${styles.section4}`}>
                         <div ref={car15Ref} className={styles.car15Angle}></div>
-
-
                     </section>
-                    <section className={`${styles.stopscanItems} ${styles.section5}`}></section>
+
+                    <section ref={section5Ref} className={`${styles.stopscanItems} ${styles.section5}`}>
+                        <div ref={car115TwoRef} className={styles.car115TwoAngle}></div>
+                    </section>
                     <section className={`${styles.stopscanItems} ${styles.section6}`}></section>
                     <section className={`${styles.stopscanItems} ${styles.section7}`}></section>
                     <section className={`${styles.stopscanItems} ${styles.section8}`}></section>
