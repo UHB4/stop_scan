@@ -2,12 +2,19 @@
 @import '../styles/utils/variables';
 
 html, body {
-  //overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 .content {
-  overflow: visible;
-  height: 100vh;
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+
+  .scroll-container {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+  }
 
   .stopscanItems {
     width: 100%;
@@ -68,13 +75,14 @@ html, body {
     max-width: 650px; // 최대 너비 설정
     max-height: 600px; // 최대 높이 설정
     position: absolute;
-    z-index: 1000;
+    z-index: 2000;
   }
 }
 
 .section3 {
   background-image: url("../assets/main/cloudBg3.png");
   background-size: cover;
+  z-index: -1000;
 }
 
 .section4 {
