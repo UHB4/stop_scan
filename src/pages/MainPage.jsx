@@ -101,12 +101,7 @@ export default function MainPage() {
                     start: "center ", // 섹션의 중앙이 화면 중앙에 오면 시작
                     end: "+=2000", // 스크롤 2000px 동안 애니메이션 진행
                     scrub: true,
-                    // onEnter: () => {
-                    //     console.log('car115Angle 애니메이션 진입');
-                    //     gsap.set(car115Angle, { autoAlpha: 1, display: 'block' });
-                    // },
-                    // onLeave: () => console.log('car115Angle 애니메이션 이탈'),
-                    // toggleActions: "play none none reverse"
+
                 }
             });
 
@@ -141,7 +136,7 @@ export default function MainPage() {
                 trigger: section4,
                 pin: true,
                 start: "top top ", // 섹션의 중앙이 화면 중앙에 오면 시작
-                end: "+=1400", // 스크롤 2000px 동안 애니메이션 진행
+                end: "+=2500", // 스크롤 2000px 동안 애니메이션 진행
                 scrub: true,
             }
         });
@@ -162,7 +157,7 @@ export default function MainPage() {
                 trigger: section5,
                 pin: true,
                 start: "top top ", // 섹션의 중앙이 화면 중앙에 오면 시작
-                end: "+=1400", // 스크롤 2000px 동안 애니메이션 진행
+                end: "+=2500",
                 scrub: true,
             }
         });
@@ -207,8 +202,22 @@ export default function MainPage() {
                     </section>
                     <section className={`${styles.stopscanItems} ${styles.section3}`}></section>
 
+
+
                     <section ref={section4Ref} className={`${styles.stopscanItems} ${styles.section4}`}>
                         <div ref={car15Ref} className={styles.car15Angle}></div>
+                        <div className={styles.restWrapContent}>
+                            <div className={styles.restContent}>
+                                <div className={styles.img}>
+                                    <button type="button" className={styles.arrow}></button>
+                                </div>
+                                <div className={styles.txt}>
+                                    <p>휴게소</p>
+                                    <p>정보제공</p></div>
+                            </div>
+
+
+                        </div>
                     </section>
 
                     <section ref={section5Ref} className={`${styles.stopscanItems} ${styles.section5}`}>
