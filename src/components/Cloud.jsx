@@ -14,7 +14,7 @@ import cloud9 from '../assets/main/cloud/cloud9.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Cloud() {
+export default function Cloud({ position = 'top' }) {
     const cloudRefs = useRef([]);
     const containerRef = useRef(null);
 
@@ -25,14 +25,14 @@ export default function Cloud() {
         // 초기 위치 설정
         clouds.forEach((cloud, index) => {
             gsap.set(cloud, {
-                xPercent: -50,
+                x: '-300',
                 left: `${(index + 1) * 10}%`,
-                top: "20%", // 뷰포트 하단에 위치
+                top: position === 'top' ? "5%" : "60%", // 위치에 따라 초기 top 값 변경
                 position: "absolute",
                 zIndex: 10 + index,
                 scale: 1 + (index % 3) * 0.1,
                 rotation: (index % 2 === 0) ? 5 : -5,
-                opacity: 0 // 초기에 투명하게 설정
+                opacity: 0.5 // 초기에 투명하게 설정
             });
         });
 
@@ -40,8 +40,8 @@ export default function Cloud() {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: container,
-                start: "top bottom", // 컨테이너의 상단이 뷰포트의 하단에 닿을 때 시작
-                end: "bottom top", // 컨테이너의 하단이 뷰포트의 상단에 닿을 때 종료
+                start: position === 'top' ? "top bottom" : "top bottom",
+                end: position === 'top' ? "bottom top" : "bottom center",
                 scrub: 1,
                 markers: true,
             }
@@ -50,7 +50,7 @@ export default function Cloud() {
         // 각 구름에 대한 애니메이션 추가
         clouds.forEach((cloud, index) => {
             tl.to(cloud, {
-                top: "0%", // 뷰포트 상단으로 이동
+                top: position === 'top' ? "-20%" : "80%", // 위치에 따라 최종 top 값 변경
                 opacity: 1,
                 scale: 0.8,
                 duration: 1,
@@ -58,7 +58,7 @@ export default function Cloud() {
             }, index * 0.01); // 각 구름의 애니메이션 시작을 0.01초씩 지연
         });
 
-    }, []);
+    }, [position]);
 
     return (
         <div ref={containerRef} className={styles.cloudContainer}>

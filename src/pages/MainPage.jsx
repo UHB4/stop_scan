@@ -103,11 +103,11 @@ export default function MainPage() {
             });
 
             car115Timeline.fromTo(car115Angle,
-                {  xPercent: 180, yPercent:0 },
+                {  x: '60vw', y:'30vh' },
                 {
-                    xPercent: -550,
-                    yPercent: 700,
-                    rotation: 20,
+                    x:'-250vw',
+                    y:'250vh' ,
+                    rotation: 35,
                     duration: 1,
                     ease: "power1.inOut",
                     // onStart: () => {
@@ -151,14 +151,18 @@ export default function MainPage() {
                 <div className="scroll-container">
                     <Section1 ref={section1Ref}/>
                     <section ref={section2Ref} className={`${styles.stopscanItems} ${styles.section2}`}>
-                        <div className={styles.cloudContainer}>
-                            <Cloud gsap={gsap}/>
+                        <div className={styles.cloudContainerTop}>
+                            <Cloud position = "top"/>
+
                         </div>
                         <div ref={carRRef} className={styles.carRSide}></div>
                         <div ref={titleRef} className={styles.titleText}>
                             STOP SCAN
                         </div>
                         <div ref={car115Ref} className={styles.car115Angle}></div>
+                        <div className={styles.cloudContainerBottom}>
+                            <Cloud position="bottom"/>
+                        </div>
                     </section>
                     <section className={`${styles.stopscanItems} ${styles.section3}`}></section>
                     <section className={`${styles.stopscanItems} ${styles.section4}`}></section>
