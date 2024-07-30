@@ -119,10 +119,10 @@ export default function MainPage() {
             // Header 표시 설정
             ScrollTrigger.create({
                 trigger: section2,
-                start: "top top",
+                start: "top+=58 top",
                 end: "bottom bottom",
                 onUpdate: (self) => {
-                    if (self.progress > 0.7 && self.direction > 0) {
+                    if (self.progress > 0.7 ) {
                         setShowHeader(true);
                     } else if (self.progress <= 0.7 || self.direction < 0) {
                         setShowHeader(false);
@@ -142,7 +142,7 @@ export default function MainPage() {
         });
 
         car15Timeline.fromTo(car15Angle,
-            {  x: '-80vw', y:'-40vh', rotation: 65, scale: 1.5 },
+            {  x: '-80vw', y:'-40vh', rotation: 65, scale: 1 },
             {
                 x:'300vw',
                 y:'200vh' ,
