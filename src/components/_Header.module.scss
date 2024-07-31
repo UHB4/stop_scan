@@ -6,7 +6,6 @@
   top: 0;
   left: 0;
   width: 100%;
-  //background-color: rgba(255, 255, 255, 0.9);
   z-index: 1000;
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -21,11 +20,91 @@
     pointer-events: auto;
   }
 
+  .inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .leftPlaceholder {
+    width: 30px; // Same width as rightBtn
+  }
+
   h1 {
     font-size: 2rem;
     font-weight: bold;
     color: $background-light;
-    text-align: center;
     margin: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+
+
+  .rightBtn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    //z-index: 1002;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 24px;
+      height: 24px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url("../assets/icons/bars.svg");
+    }
+
+    &.on::before {
+      background-image: url("../assets/icons/xMark.svg");
+      z-index: 1000;
+    }
+  }
+
+  .menuPage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $background-light;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+      h1 {
+        color: black;
+        position: absolute;
+        top: 1.5%;
+        font-weight: 800;
+      }
+      ul {
+      list-style-type: none;
+      padding: 0;
+
+        li {
+        color: black;
+        font-size: 6.4rem;
+        font-weight: 800;
+        line-height: 13rem;
+        margin-bottom: 1rem;
+        cursor: pointer;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+    }
   }
 }
