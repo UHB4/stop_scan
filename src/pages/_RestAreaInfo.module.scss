@@ -12,7 +12,7 @@
   .mapContWrap {
     height: 100%;
     width: 405px;
-    background-color: #38c8fa;
+    background-color: $background-light;
     z-index: 2;
   }
 
@@ -23,6 +23,15 @@
     background-color: red;
     z-index: 1;
   }
+}
 
 
+.mapMenu {
+  height: 240px;
+  padding: 20px 20px 0;
+  position: relative;
+  background-color: $background-primary;
+    .h1{
+
+    }
 }
