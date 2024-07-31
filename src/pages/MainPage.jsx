@@ -5,10 +5,12 @@ import Cloud from '../components/Cloud';
 import Header from '../components/Header';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {useNavigate} from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function MainPage() {
+    const navigate = useNavigate();
     const section1Ref = useRef(null);
     const section2Ref = useRef(null);
     const section4Ref = useRef(null);
@@ -19,6 +21,11 @@ export default function MainPage() {
     const car115Ref = useRef(null);
     const car15Ref = useRef(null);
     const car115TwoRef = useRef(null);
+
+
+
+
+
 
     useEffect(() => {
         console.log('useEffect 시작됨');
@@ -210,7 +217,11 @@ export default function MainPage() {
                         <div className={styles.restWrapContent}>
                             <div className={styles.restContent}>
                                 <div className={styles.img}>
-                                    <button type="button" className={styles.arrow}></button>
+                                    <button
+                                        type="button"
+                                        className={styles.arrow}
+                                        onClick={() => navigate('/RestAreaInfo')}
+                                    ></button>
                                 </div>
                                 <div className={styles.txt}>
                                     <p>휴게소</p>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './_Header.module.scss';
+import {Link} from "react-router-dom";
 
 const Header = ({ text }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,23 +17,21 @@ const Header = ({ text }) => {
         <header className={styles.header}>
             <div className={styles.inner}>
                 <div className={styles.leftPlaceholder}></div>
-                <h1 className>{text}</h1>
+                <h1>{text}</h1>
                 <div
                     className={`${styles.rightBtn} ${isMenuOpen ? styles.on : ''}`}
                     onClick={toggleMenu}
                 >
                 </div>
             </div>
-            {isMenuOpen && (
-                <div className={styles.menuPage} onClick={toggleMenu}>
-                    <ul onClick={(e) => e.stopPropagation()}>
-                        <h1>STOP SCAN</h1>
-                        <li>휴게소 안내</li>
-                        <li>충전소 안내</li>
-                        <li>주유소 안내</li>
-                    </ul>
-                </div>
-            )}
+            <div className={`${styles.menuPage} ${isMenuOpen ? styles.open : ''}`} onClick={toggleMenu}>
+                <ul onClick={(e) => e.stopPropagation()}>
+                    <h1>STOP SCAN</h1>
+                    <li><Link to="/RestAreaInfo">휴게소 안내</Link></li>
+                    <li>충전소 안내</li>
+                    <li>주유소 안내</li>
+                </ul>
+            </div>
         </header>
     );
 };
