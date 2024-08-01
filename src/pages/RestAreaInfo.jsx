@@ -149,7 +149,7 @@ export default function RestAreaInfo() {
                 {selectedRestArea && (
                     <div className={styles.detailPage}>
                         <div className={styles.imgBox}></div>
-                        <button className={styles.closeButton} onClick={closeDetailPage}>닫기</button>
+                        <button className={styles.closeButton} onClick={closeDetailPage}></button>
                         <div className={styles.titDetail}>
                         <h2>{selectedRestArea}</h2>
                         </div>
@@ -185,10 +185,22 @@ export default function RestAreaInfo() {
                                     <span>샤워실</span>
                           </span>
                         </div>
-                        <div className={styles.infoBox}></div>
-                        <div className={styles.menuBox}></div>
-                        <div className={styles.brandList}></div>
-                        <p>..</p>
+                        <div className={styles.infoBox}>
+                            <div className={styles.infoTit}>
+                            <h2>시설정보</h2>
+                            <span className={styles.upDate}>2024.08.01 업데이트</span>
+                            </div>
+                            <div className={styles.fuelDetail}>
+                                <h3>주유소, 충전소</h3>
+                                <div className={styles.fuelBox}></div>
+                            </div>
+                        </div>
+                        <div className={styles.menuBox}>
+                            <h2>메뉴 16</h2>
+                        </div>
+                        <div className={styles.brandList}>
+                            <h2>브랜드매장</h2>
+                        </div>
                     </div>
                 )}
             </div>
