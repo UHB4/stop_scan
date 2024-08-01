@@ -456,6 +456,7 @@ html, body {
           right: -49px;
           transform: translateY(-50%);
 
+
           @include tablet {
             background: #548DEE url("../assets/icons/arrowRight.svg") 50% 50% / 30px no-repeat;
             top: auto;
