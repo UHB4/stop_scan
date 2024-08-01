@@ -76,7 +76,10 @@
   &:hover {
     background-color: #548DEE;
     color: white;
-
+  &.active {
+    background-color: #548DEE;
+    color: white;
+  }
     .arrowUp {
       background-image: url("../assets/icons/upWhite.svg");
     }
@@ -167,20 +170,26 @@
   padding: 30px 20px;
   border-bottom: 1px solid #f4f3f3;
   overflow: hidden;
-  &:hover{
+
+  &:hover {
     background-color: #548DEE;
   }
-    .tit {
-      display: flex;
-        a {
-          font-size: 1.6rem;
-        }
-      .iconBox{
-        display: flex;
-        margin-left: 100px;
-        gap: 10px;
-      }
+
+  .tit {
+    display: flex;
+    justify-content: flex-end; // 오른쪽 정렬
+    align-items: center; // 수직 중앙 정렬
+
+    a {
+      font-size: 1.6rem;
+      margin-right: auto; // 왼쪽으로 밀어냄
     }
+
+    .iconBox {
+      display: flex;
+      gap: 10px;
+    }
+  }
 }
 
 // =============================================detailPage===================================================
@@ -218,14 +227,22 @@
   align-items: center;
   height: 100px;
   border-bottom: 1px solid #f4f3f3;
+  overflow-x: auto;
   .icons {
     display: grid;
     align-items: center;
     margin-right: 35px;
-    gap: 5px;
+    gap: 9px;
+    img {
+      width: 30px;
+      height: 20px;
+    }
+
     span {
       position: relative;
+      margin: 0;
       left: 2px;
+      white-space: nowrap;
     }
   }
 }
