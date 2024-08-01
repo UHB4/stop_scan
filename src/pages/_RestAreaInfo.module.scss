@@ -6,20 +6,23 @@
   height: 100vh;
   overflow: hidden;
   display: flex;
+  position: relative;
+}
 
-  .mapContWrap {
-    height: 100%;
-    width: 405px;
-    background-color: $background-light;
-    z-index: 2;
-  }
+.mapContWrap {
+  height: 100%;
+  width: 405px;
+  background-color: $background-light;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
 
-  .mapContainer {
-    flex: 1;
-    height: 100%;
-    background-color: red;
-    z-index: 1;
-  }
+.mapContainer {
+  flex: 1;
+  height: 100%;
+  background-color: red;
+  z-index: 1;
 }
 
 .mapMenu {
@@ -27,122 +30,214 @@
   padding: 20px 20px 0;
   position: relative;
   background-color: $background-primary;
+}
 
-  .buttonContainers {
+.buttonContainers {
+  position: absolute;
+  right: 25px;
+  top: 22px;
+}
+
+.toSeoul,
+.toBusan {
+  font-size: 0.8rem;
+  width: 60px;
+  height: 20px;
+  margin-bottom: 5px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 0 5px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+
+  .arrowUp,
+  .arrowDown {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 10px;
+    height: 10px;
     position: absolute;
-    right: 25px;
-    top: 22px;
-
-    .toSeoul, .toBusan {
-      font-size: 0.8rem;
-      width: 60px;
-      height: 20px;
-      margin-bottom: 5px;
-      background-color: white;
-      border-radius: 10px;
-      padding: 0 5px;
-      position: relative;  // 추가: 상대 위치 설정
-      //display: flex;  // 추가: Flexbox 사용
-      justify-content: center;  // 추가: 가로 중앙 정렬
-      align-items: center;  // 추가: 세로 중앙 정렬
-
-      .arrowUp, .arrowDown {
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        width: 10px;
-        height: 10px;
-        position: absolute;  // 추가: 절대 위치 설정
-        left: 3px;  // 추가: 오른쪽에 배치
-        top: 50%;  // 추가: 세로 중앙에 배치
-        transform: translateY(-50%);  // 추가: 정확한 세로 중앙 정렬
-      }
-
-      .arrowUp {
-        background-image: url("../assets/icons/upBlack.svg");
-        transform: translateY(-50%) rotate(180deg);  // rotate 유지하면서 세로 중앙 정렬
-      }
-
-      .arrowDown {
-        background-image: url("../assets/icons/downBlack.svg");
-      }
-      &:hover {
-        background-color: #548DEE;
-        color: white;  // 추가: 호버 시 텍스트 색상 변경
-
-        .arrowUp {
-          background-image: url("../assets/icons/upWhite.svg");
-        }
-
-        .arrowDown {
-          background-image: url("../assets/icons/downWhite.svg");
-        }
-      }
-
-    }
-
-    .toSeoul {
-      margin-right: 5px;
-    }
+    left: 3px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
+  .arrowUp {
+    background-image: url("../assets/icons/upBlack.svg");
+    transform: translateY(-50%) rotate(180deg);
+  }
 
-  .customDropdown {
-    position: relative;
-    width: 360px;
-    margin-top: 20px;
+  .arrowDown {
+    background-image: url("../assets/icons/downBlack.svg");
+  }
 
-    .dropdownHeader {
-      height: 60px;
-      border-radius: 10px;
-      background-color: white;
+  &:hover {
+    background-color: #548DEE;
+    color: white;
+
+    .arrowUp {
+      background-image: url("../assets/icons/upWhite.svg");
+    }
+
+    .arrowDown {
+      background-image: url("../assets/icons/downWhite.svg");
+    }
+  }
+}
+
+.toSeoul {
+  margin-right: 5px;
+}
+
+.customDropdown {
+  position: relative;
+  width: 360px;
+  margin-top: 20px;
+}
+
+.dropdownHeader {
+  height: 60px;
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  cursor: pointer;
+  font-size: 16px;
+
+  .downIcon {
+    background-image: url("../assets/icons/caretDown.svg");
+    background-size: cover;
+    background-position: center;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 8%;
+  }
+}
+
+.dropdownList {
+  position: absolute;
+  top: 90%;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background: transparent;
+  }
+
+  li {
+    font-size: 1.6rem;
+    padding: 20px 30px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #548DEE;
+    }
+  }
+}
+.menuCont {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.listCount {
+  padding: 20px;
+  border-bottom: 1px solid #f4f3f3;
+}
+.restList {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.on {
+  padding: 30px 20px;
+  border-bottom: 1px solid #f4f3f3;
+  overflow: hidden;
+  &:hover{
+    background-color: #548DEE;
+  }
+    .tit {
       display: flex;
-      align-items: center;
-      padding: 0 20px;
-      cursor: pointer;
-      font-size: 16px;
-      .downIcon {
-        background-image: url("../assets/icons/caretDown.svg");
-        background-size: cover;
-        background-position: center;
-        width: 20px;
-        height: 20px;
-        position: absolute;
-        right: 8%;
+        a {
+          font-size: 1.6rem;
+        }
+      .iconBox{
+        display: flex;
+        margin-left: 100px;
+        gap: 10px;
       }
     }
+}
 
-    .dropdownList {
-      position: absolute;
-      top: 90%;
-      left: 0;
-      width: 100%;
-      background-color: white;
-      //border-radius: 0 0 10px 10px;
-      max-height: 300px;
-      overflow-y: auto;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+// =============================================detailPage===================================================
 
+.detailPage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 405px;
+  width: 350px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 3;
 
-      // 스크롤바 숨기기
-      scrollbar-width: none;  // Firefox에서 숨기기
-      -ms-overflow-style: none; // explorer 랑 edge 에서 숨기기
-      &::-webkit-scrollbar {  //  chrome,safari 에서 숨기기
-        width: 0;
-        height: 0;
-        background: transparent;
-      }
+  &.open {
+  }
+  .imgBox {
+    width: 350px;
+    height: 200px;
+    background-color: red;
+  }
+}
 
-      li {
-        font-size: 1.6rem;
-        padding: 20px 30px;
-        cursor: pointer;
-        transition: background-color 0.2s;
-
-        &:hover {
-          background-color: #548DEE;
-        }
-      }
+.titDetail {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding: 10px;
+  border-bottom: 1px solid #f4f3f3;
+}
+.iconBox2 {
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  height: 100px;
+  border-bottom: 1px solid #f4f3f3;
+  .icons {
+    display: grid;
+    align-items: center;
+    margin-right: 35px;
+    gap: 5px;
+    span {
+      position: relative;
+      left: 2px;
     }
   }
+}
+
+
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
 }

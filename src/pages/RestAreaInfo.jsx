@@ -2,7 +2,11 @@ import React, {useEffect, useRef, useState} from 'react';
 import styles from './_RestAreaInfo.module.scss';
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useNavigate } from "react-router-dom";
-
+import shoppingCartIcon from '../assets/icons/ShoppingCart.png';
+import baby from '../assets/icons/baby.png';
+import atm from '../assets/icons/atm.png';
+import bath from '../assets/icons/bath.png';
+import laundry from '../assets/icons/laundry.png';
 export default function RestAreaInfo() {
     const [position, setPosition] = useState({lat:36.5, lng: 127.5});
     const [zoomLevel, setZoomLevel] = useState(12);
@@ -12,10 +16,11 @@ export default function RestAreaInfo() {
     const dropdownRef = useRef(null);
     const listRef = useRef(null);
     const selectedItemRef = useRef(null);
+    const [selectedRestArea, setSelectedRestArea] = useState(null);
 
     const handleStopScan = () => {
         navigate('/mainpage')
-    }
+    };
 
     const toggleDropdown = () => setIsOpen(!isOpen);
 
@@ -29,6 +34,16 @@ export default function RestAreaInfo() {
             setIsOpen(false);
         }
     }
+
+
+    const handleRestAreaClick = (restArea) => {
+        setSelectedRestArea(restArea);
+    };
+
+    const closeDetailPage = () => {
+        setSelectedRestArea(null);
+    }
+
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
@@ -95,12 +110,87 @@ export default function RestAreaInfo() {
                                 </ul>
                             )}
                         </div>
+                    </div> {/* mapMenu 끝 */}
+
+                    <div className={styles.menuCont}>
+                        <div className={styles.listCount}>
+                            <h2>15개</h2>
+                        </div>
+                        <div className={styles.restList}>
+                            <ul id={styles.conListUl}>
+                                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(() => (
+                                    <li className={styles.on} onClick={() => handleRestAreaClick(`양산(서울방향)휴게소 `)}>
+                                        <div className={styles.tit}>
+                                            <a>양산(서울방향)휴게소 </a>
+                                            <div className={styles.iconBox}>
+                                                <span>아이콘</span>
+                                                <span>아이콘</span>
+                                                <span>아이콘</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
 
                     </div>
+
+
                 </div>
+
+
+                {/*맵 부분*/}
                 <div className={styles.mapContainer}>
                     <Map center={position} level={zoomLevel} style={{width: "100%", height: "100vh"}}></Map>
                 </div>
+
+                {/*상세페이지*/}
+                {selectedRestArea && (
+                    <div className={styles.detailPage}>
+                        <div className={styles.imgBox}></div>
+                        <button className={styles.closeButton} onClick={closeDetailPage}>닫기</button>
+                        <div className={styles.titDetail}>
+                        <h2>{selectedRestArea}</h2>
+                        </div>
+                        <div className={styles.iconBox2}>
+                          <span className={styles.icons}>
+                                <img
+                                    src={shoppingCartIcon}
+                                    alt=""/>
+                                    <span>편의점</span>
+                          </span>
+                            <span className={styles.icons}>
+                                <img
+                                    src={atm}
+                                    alt=""/>
+                                    <span>ATM</span>
+                          </span>
+                            <span className={styles.icons}>
+                                <img
+                                    src={baby}
+                                    alt=""/>
+                                    <span>수유실</span>
+                          </span>
+                            <span className={styles.icons}>
+                                <img
+                                    src={laundry}
+                                    alt=""/>
+                                    <span>세탁실</span>
+                          </span>
+                            <span className={styles.icons}>
+                                <img
+                                    src={bath}
+                                    alt=""/>
+                                    <span>샤워실</span>
+                          </span>
+                        </div>
+                        <div className={styles.infoBox}></div>
+                        <div className={styles.menuBox}></div>
+                        <div className={styles.brandList}></div>
+                        <p>..</p>
+                    </div>
+                )}
             </div>
         </>
     )
