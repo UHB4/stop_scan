@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import styles from './_RestAreaInfo.module.scss';
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { Map, MapMarker,CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useNavigate } from "react-router-dom";
 import shopping from '../assets/icons/shoppingCart.svg';
 import breastFeeding from '../assets/icons/breastFeeding.svg';
@@ -10,6 +10,7 @@ import laundry from '../assets/icons/laundry.svg';
 import wheat from '../assets/icons/wheat.svg';
 import bed from '../assets/icons/bed.svg'
 import barber from '../assets/icons/barber.svg'
+import locationDot from '../assets/icons/locationDot.svg';
 
 export default function RestAreaInfo() {
     const [position, setPosition] = useState({lat:36.5, lng: 127.5});
@@ -23,11 +24,13 @@ export default function RestAreaInfo() {
     const [selectedRestArea, setSelectedRestArea] = useState(null);
     const [combinedData, setCombinedData] = useState(null);    // 통합된 API 응답 데이터를 저장할 상태
     const [selectedDirection, setSelectedDirection] = useState('상행');    // 현재 선택된 방향
+    const [selectedRestAreaImage, setSelectedRestAreaImage] = useState([]);
     const [selectedRestAreaFacilities, setSelectedRestAreaFacilities ] = useState([]);
     const [selectedRestAreaFuelPrices, setSelectedRestAreaFuelPrices] = useState([]);
     const [selectedRestAreaBestFoods, setSelectedRestAreaBestFoods] = useState([]);
     const [selectedRestAreaRestBrands, setSelectedRestAreaRestBrands] = useState([]);
     const [currentDate, setCurrentDate] = useState('');
+
 
     const handleStopScan = () => {
         navigate('/mainpage')
@@ -79,9 +82,11 @@ export default function RestAreaInfo() {
             setIsOpen(false);
         }
     }
-
     const handleRestAreaClick = (restArea) => {
+        console.log('선택된 휴게소:', restArea);
         setSelectedRestArea(restArea);
+        const imageUrl = getSelectedRestAreaImage(restArea);
+        console.log('가져온 이미지 URL:', imageUrl);
         const facilities = getSelectedRestAreaFacilities(restArea);
         setSelectedRestAreaFacilities(facilities);
         const fuelPrices = getSelectedRestAreaFuelPrices(restArea);
@@ -168,6 +173,26 @@ export default function RestAreaInfo() {
 
         return filteredAreas;
     }
+    // =============================================디테일 페이지 이미지박스 ===========================================================
+    const getSelectedRestAreaImage = (restAreaName) => {
+        if (!combinedData || !combinedData.restAreas) {
+            console.log('combinedData 또는 restAreas가 없습니다.');
+            return null;
+        }
+        // '휴게소'를 제거하고 매칭
+        const cleanRestAreaName = restAreaName.replace('휴게소', '').trim();
+        const restArea = combinedData.restAreas.find(area => area.휴게소명 === cleanRestAreaName);
+        if (!restArea) {
+            console.log(`'${cleanRestAreaName}' 휴게소를 찾을 수 없습니다.`);
+            return null;
+        }
+        console.log('선택된 휴게소 정보:', restArea);
+        console.log('이미지 URL:', restArea.이미지);
+        return restArea.이미지;
+    };
+
+    // =============================================디테일 페이지 이미지박스 끝 ===========================================================
+
 
     // ================================================================디테일 페이지에 아이콘 동적업데이트 로직 =====================================================================
     // 시설정보와 임포트한 아이콘을 매칭
@@ -280,7 +305,8 @@ export default function RestAreaInfo() {
             <div className={styles.wrap}>
                 <div className={styles.mapContWrap}>
                     <div className={styles.mapMenu}>
-                        <h1 style={{color :"white", fontWeight: "900", cursor: "pointer"}} onClick={handleStopScan}>STOP SCAN</h1>
+                        <h1 style={{color: "white", fontWeight: "900", cursor: "pointer"}} onClick={handleStopScan}>STOP
+                            SCAN</h1>
                         <div className={styles.buttonContainers}>
                             <button
                                 className={`${styles.toSeoul} ${selectedDirection === '상행' ? styles.active : ''}`}
@@ -327,7 +353,8 @@ export default function RestAreaInfo() {
                                 </ul>
                             )}
                         </div>
-                    </div> {/* mapMenu 끝 */}
+                    </div>
+                    {/* mapMenu 끝 */}
 
                     <div className={styles.menuCont}>
                         <div className={styles.listCount}>
@@ -354,31 +381,89 @@ export default function RestAreaInfo() {
                 </div>
 
                 {/*===================================맵 부분============================================*/}
+
                 <div className={styles.mapContainer}>
-                    <Map center={position} level={zoomLevel} style={{width: "100%", height: "100vh"}}>
+                    <Map
+                        center={position}
+                        level={zoomLevel}
+                        style={{width: "100%", height: "100vh"}}
+                    >
+                        {combinedData && combinedData.restAreas &&
+                            combinedData.restAreas.filter(restArea =>
+                                (selectedDirection === '상행' && restArea.도로노선방향 === '상행') ||
+                                (selectedDirection === '하행' && restArea.도로노선방향 === '하행')
+                            ).map((restArea, index) => (
+                                <div key={index}>
+                                    <MapMarker
+                                        position={{
+                                            lat: parseFloat(restArea.위도),
+                                            lng: parseFloat(restArea.경도)
+                                        }}
+                                        onClick={() => handleRestAreaClick(restArea.휴게소명)}
+                                        image={{
+                                            src: locationDot,
+                                            size: {
+                                                width: 34,
+                                                height: 34
+                                            },
+                                        }
+                                    }
+                                    />
+                                    <CustomOverlayMap
+                                        position={{
+                                            lat: parseFloat(restArea.위도),
+                                            lng: parseFloat(restArea.경도)
+                                        }}
+                                        yAnchor={-0.3}
+                                    >
+                                        <div style={{
+                                            padding: '5px',
+                                            color: 'black',
+                                            backgroundColor: 'white',
+                                            borderRadius: '5px',
+                                            fontSize: '12px',
+                                            fontWeight: 'bold',
+                                            boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
+                                        }}>
 
-
-
-
-
-
-
-
-
-
-
+                                            {restArea.휴게소명}
+                                        </div>
+                                    </CustomOverlayMap>
+                                </div>
+                            ))
+                        }
                     </Map>
                 </div>
-
-
-
-
 
 
                 {/*=========================상세페이지 부분===============================================*/}
                 {selectedRestArea && (
                     <div className={styles.detailPage}>
-                        <div className={styles.imgBox}></div>
+                        <div className={styles.imgBox}>
+                            {getSelectedRestAreaImage(selectedRestArea) ? (
+                                <img
+                                    src={getSelectedRestAreaImage(selectedRestArea)}
+                                    alt={selectedRestArea}
+                                    style={{width: '100%', height: '100%', objectFit: 'cover'}}
+                                    onError={(e) => {
+                                        console.error('이미지 로딩 실패:', e);
+                                        e.target.src = '대체 이미지 URL'; // 대체 이미지 URL을 지정하세요
+                                    }}
+                                />
+                            ) : (
+                                <div style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    backgroundColor: '#f0f0f0',
+                                    color: '#666'
+                                }}>
+                                    이미지 없음
+                                </div>
+                            )}
+                        </div>
                         <button className={styles.closeButton} onClick={closeDetailPage}></button>
                         <div className={styles.titDetail}>
                             <h2>{selectedRestArea}</h2>
