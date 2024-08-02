@@ -9,6 +9,7 @@ import shower from '../assets/icons/shower.svg';
 import laundry from '../assets/icons/laundry.svg';
 import wheat from '../assets/icons/wheat.svg';
 import bed from '../assets/icons/bed.svg'
+import barber from '../assets/icons/barber.svg'
 
 export default function RestAreaInfo() {
     const [position, setPosition] = useState({lat:36.5, lng: 127.5});
@@ -24,6 +25,7 @@ export default function RestAreaInfo() {
     const [combinedData, setCombinedData] = useState(null);
     // 현재 선택된 방향
     const [selectedDirection, setSelectedDirection] = useState('상행');
+    const [selectedRestAreaFacilities, setSelectedRestAreaFacilities ] = useState([]);
 
     const handleStopScan = () => {
         navigate('/mainpage')
@@ -31,15 +33,15 @@ export default function RestAreaInfo() {
 
     const toggleDropdown = () => setIsOpen(!isOpen);
 
-    // 새로운 함수: 여러 API 요청을 동시에 수행하는 함수
+    // 여러 API 요청을 동시에 수행하는 함수
     const fetchAllData = async (routeNm) => {
         try {
             const urls = [
-                `http://localhost:5000/restareas?route=${encodeURIComponent(routeNm)}`,
-                `http://localhost:5000/restbrands?routeNm=${encodeURIComponent(routeNm)}`,
-                `http://localhost:5000/fuelprices?routeNm=${encodeURIComponent(routeNm)}`,
-                `http://localhost:5000/facilities?routeNm=${encodeURIComponent(routeNm)}`,
-                `http://localhost:5000/bestfoods?routeNm=${encodeURIComponent(routeNm)}`
+                `http://localhost:5000/restareas?route=${encodeURIComponent(routeNm)}`, // 휴게소 데이터를 받아오는 엔드포인트
+                `http://localhost:5000/restbrands?routeNm=${encodeURIComponent(routeNm)}`, // 휴게소 입점브랜드를 받아오는 엔드포인트
+                `http://localhost:5000/fuelprices?routeNm=${encodeURIComponent(routeNm)}`, // 휴게소 주유소 유류정보를 받아오는 엔드포인트
+                `http://localhost:5000/facilities?routeNm=${encodeURIComponent(routeNm)}`, // 휴게소 편의시설 정보를 받아오는 엔드포인트
+                `http://localhost:5000/bestfoods?routeNm=${encodeURIComponent(routeNm)}` // 휴게소 음식메뉴 정보를 받아오는 엔드포인트
             ];
 
             const responses = await Promise.all(urls.map(url => fetch(url)));
@@ -78,6 +80,8 @@ export default function RestAreaInfo() {
 
     const handleRestAreaClick = (restArea) => {
         setSelectedRestArea(restArea);
+        const facilities = getSelectedRestAreaFacilities(restArea);
+        setSelectedRestAreaFacilities(facilities);
     };
 
     const closeDetailPage = () => {
@@ -156,6 +160,34 @@ export default function RestAreaInfo() {
 
         return filteredAreas;
     }
+
+    // 시설정보와 임포트한 아이콘을 매칭
+    const facilityIcons = {
+        수유실: { icon:breastFeeding, label:"수유실"},
+        쉼터: {icon:rest, label:"쉼터"},
+        샤워실: {icon:shower, label:"샤워실"},
+        세탁실: {icon:laundry, label:"세탁실"},
+        농산물판매장: {icon:wheat, label:"농산물 판매장"},
+        수면실: {icon:bed, label:"수면실"},
+        이발소: {icon:barber, label:"이발소"},
+    }
+
+    const getSelectedRestAreaFacilities = (restAreaName) => { // 선택된 휴게소의 이름을 매개변수로 받음.
+        if (!combinedData || !combinedData.facilities || !combinedData.facilities.list) return [];
+        // 안전성 검사 combinedData,combinedData.facilities,
+        // combinedData.facilities.list 중 하나라도없으면 빈배열 반환 데이터가 아직 로드되지않았을때 오류 방지
+
+        const facility = combinedData.facilities.list.find(
+            item => item.serviceAreaName === restAreaName // 넘어오는데이터에 facilities에 list에 item에서 serviceAreaName 이 선택한 휴게소의 이름과 일치하는 항목을 찾아서 facility 변수에 저장
+        );
+
+        if (!facility || !facility.convenience) return []; // 만약 해당 휴게소를 찾지못하거나 찾은 휴게소에 convenience 속성이 없으면 빈 배열 반환
+
+        return facility.convenience.split('|'); // 모든 기준을 통과하면 문자열을 | 기준으로 반환
+        // 예를들어 facility.convenience 가 "수유실"|"샤워실"|"세탁실"  이라면     ["수유실","샤워실","세탁실"]이라는 배열로 반환
+    }
+
+
     return(
         <>
             <div className={styles.wrap}>
@@ -254,36 +286,17 @@ export default function RestAreaInfo() {
                                     alt=""/>
                                     <span>편의점</span>
                           </span>
-                            <span className={styles.icons}>
-                                <img
-                                    src={rest}
-                                    alt=""/>
-                                    <span>쉼터</span>
-                          </span>
-                            <span className={styles.icons}>
-                                <img
-                                    src={breastFeeding}
-                                    alt=""/>
-                                    <span>수유실</span>
-                          </span>
-                            <span className={styles.icons}>
-                                <img
-                                    src={laundry}
-                                    alt=""/>
-                                    <span>세탁실</span>
-                          </span>
-                            <span className={styles.icons}>
-                                <img
-                                    src={shower}
-                                    alt=""/>
-                                    <span>샤워실</span>
-                          </span>
-                            <span className={styles.icons}>
-                                <img
-                                    src={wheat}
-                                    alt=""/>
-                                    <span>농산물 판매장</span>
-                          </span>
+                            {selectedRestAreaFacilities.map((facility, index) => (
+                                facilityIcons[facility] && (
+                                    <span key={index} className={styles.icons}>
+                                        <img
+                                            src={facilityIcons[facility].icon}
+                                            alt={facilityIcons[facility].label}
+                                            />
+                                        <span>{facilityIcons[facility].label}</span>
+                                    </span>
+                                )
+                            ))}
                         </div>
                         <div className={styles.infoBox}>
                             <div className={styles.infoTit}>
