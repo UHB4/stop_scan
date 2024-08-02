@@ -353,15 +353,33 @@ export default function RestAreaInfo() {
                     </div>
                 </div>
 
-                {/*맵 부분*/}
+                {/*===================================맵 부분============================================*/}
                 <div className={styles.mapContainer}>
-                    <Map center={position} level={zoomLevel} style={{width: "100%", height: "100vh"}}></Map>
+                    <Map center={position} level={zoomLevel} style={{width: "100%", height: "100vh"}}>
+
+
+
+
+
+
+
+
+
+
+
+                    </Map>
                 </div>
 
-                {/*상세페이지*/}
+
+
+
+
+
+                {/*=========================상세페이지 부분===============================================*/}
                 {selectedRestArea && (
                     <div className={styles.detailPage}>
                         <div className={styles.imgBox}></div>
+                        <button className={styles.closeButton} onClick={closeDetailPage}></button>
                         <div className={styles.titDetail}>
                             <h2>{selectedRestArea}</h2>
                         </div>

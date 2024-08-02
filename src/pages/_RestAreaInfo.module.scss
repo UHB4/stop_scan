@@ -205,8 +205,9 @@
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
   z-index: 3;
   overflow-y: scroll;
-  //scrollbar-width: none;  // Firefox
-  //-ms-overflow-style: none;  // IE and Edge
+  overflow-x: hidden;
+  scrollbar-width: none;  // Firefox
+  -ms-overflow-style: none;  // IE and Edge
   &.open {
   }
   .imgBox { // 이미지 박스
@@ -342,9 +343,9 @@
 
 
 .closeButton { // 닫기 버튼
-  position: absolute;
+  position: fixed;
   //top: px;
-  right: -50px;
+  left: 43.2%;
   width: 50px;
   height: 50px;
   background-image: url("../assets/icons/xMark.svg");
@@ -356,4 +357,5 @@
   font-size: 1.6rem;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 4;
 }
