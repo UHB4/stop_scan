@@ -204,7 +204,9 @@
   background-color: white;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
   z-index: 3;
-
+  overflow-y: scroll;
+  //scrollbar-width: none;  // Firefox
+  //-ms-overflow-style: none;  // IE and Edge
   &.open {
   }
   .imgBox { // 이미지 박스
@@ -228,6 +230,7 @@
   height: 100px;
   border-bottom: 1px solid #f4f3f3;
   overflow: hidden;
+
 
   .icons {
     display: grid;
@@ -266,6 +269,7 @@
   padding: 10px;
   .fuelBox {
     height: 140px;
+    margin-top: 10px;
     //background-color: #D9D9D9;
     .fuelTable {
       width: 100%;
@@ -296,12 +300,44 @@
   padding: 10px;
   height: 200px;
   border-bottom: 1px solid #f4f3f3;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.bestMenuCont {
+  padding: 10px;
+  .menu {
+    display: flex;
+    justify-content: space-between;
+    .menuName {
+      font-size: 1.4rem;
+    }
+    .menuPrice {
+      font-size: 1.4rem;
+      display: flex;
+      span {
+        font-weight: bold;
+        font-size: 1.4rem;
+      }
+    }
+  }
 }
 
 .brandList {
   padding: 10px;
   height: 150px;
-
+  .brandCont {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+  }
+  .brandName {
+    font-size: 1.4rem;
+  }
+  .brandTime {
+    font-size: 1.2rem;
+    padding-right: 20px;
+  }
 }
 
 

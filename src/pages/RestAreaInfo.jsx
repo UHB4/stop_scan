@@ -24,6 +24,10 @@ export default function RestAreaInfo() {
     const [combinedData, setCombinedData] = useState(null);    // 통합된 API 응답 데이터를 저장할 상태
     const [selectedDirection, setSelectedDirection] = useState('상행');    // 현재 선택된 방향
     const [selectedRestAreaFacilities, setSelectedRestAreaFacilities ] = useState([]);
+    const [selectedRestAreaFuelPrices, setSelectedRestAreaFuelPrices] = useState([]);
+    const [selectedRestAreaBestFoods, setSelectedRestAreaBestFoods] = useState([]);
+    const [selectedRestAreaRestBrands, setSelectedRestAreaRestBrands] = useState([]);
+    const [currentDate, setCurrentDate] = useState('');
 
     const handleStopScan = () => {
         navigate('/mainpage')
@@ -80,6 +84,12 @@ export default function RestAreaInfo() {
         setSelectedRestArea(restArea);
         const facilities = getSelectedRestAreaFacilities(restArea);
         setSelectedRestAreaFacilities(facilities);
+        const fuelPrices = getSelectedRestAreaFuelPrices(restArea);
+        setSelectedRestAreaFuelPrices(fuelPrices);
+        const bestFoods = getSelectedRestAreaBestFoods(restArea);
+        setSelectedRestAreaBestFoods(bestFoods);
+        const restBrands = getSelectedRestAreaRestBrands(restArea);
+        setSelectedRestAreaRestBrands(restBrands);
     };
 
     const closeDetailPage = () => {
@@ -159,6 +169,7 @@ export default function RestAreaInfo() {
         return filteredAreas;
     }
 
+    // ================================================================디테일 페이지에 아이콘 동적업데이트 로직 =====================================================================
     // 시설정보와 임포트한 아이콘을 매칭
     const facilityIcons = {
         수유실: { icon:breastFeeding, label:"수유실"},
@@ -184,7 +195,85 @@ export default function RestAreaInfo() {
         return facility.convenience.split('|'); // 모든 기준을 통과하면 문자열을 | 기준으로 반환
         // 예를들어 facility.convenience 가 "수유실"|"샤워실"|"세탁실"  이라면     ["수유실","샤워실","세탁실"]이라는 배열로 반환
     }
+    // ================================================================디테일 페이지에 아이콘 동적업데이트 로직 끝=====================================================================
 
+
+    // ================================================================디테일 페이지에 시설정보(주유정보) 로직 ========================================================================
+    const matchServiceAreaName = (restAreaName, fuelAreaName) => {
+        //fuelPrice 엔드포인트에서 넘어오는 데이터에 serviceAreaName 은"영산(창원)주유소" 이렇게 끝에 주유소가 붙어서
+        // 주유소를 자르고 "영산"만써서 휴게소 이름과 매칭 시키는 함수 :
+
+        const restAreaBaseName = restAreaName.split('(')[0].trim();  // 문자열을 '(' 기준으로 나누고 배열을 만든다음에, 만든 배열의 첫번째 요소 [0]인덱스를 선택하고 trim은 선택된 문자열의 앞뒤공백을 제거 "영산"만 사용
+        const fuelAreaBaseName = fuelAreaName.split('(')[0].trim();  // 상동
+
+        return restAreaBaseName === fuelAreaBaseName;
+    };
+
+    const getSelectedRestAreaFuelPrices = (restAreaName) => {
+        if (!combinedData || !combinedData.fuelPrices || !combinedData.fuelPrices.list) return null;
+
+        const fuelInfo = combinedData.fuelPrices.list.find(
+            item => matchServiceAreaName(restAreaName, item.serviceAreaName)
+        );
+        if (!fuelInfo) return null;
+
+        return {
+            gasoline: fuelInfo.gasolinePrice,
+            disel: fuelInfo.diselPrice,
+            lpg: fuelInfo.lpgPrice
+        };
+    }
+
+    useEffect(() => {
+        const date = new Date();
+        const formattedDate = `${date.getFullYear()}.${('0' + (date.getMonth() + 1)).slice(-2)}.${('0' + date.getDate()).slice(-2)}`;
+        setCurrentDate(formattedDate);
+    }, []);
+    // ================================================================디테일 페이지에 시설정보(주유정보) 로직 끝========================================================================
+
+    // =============================================================== 디테일 페이지에 메뉴정보 로직 ==================================================================================
+
+    const getSelectedRestAreaBestFoods = (restAreaName) => {
+        if (!combinedData || !combinedData.bestFoods || !combinedData.bestFoods.list) return null;
+
+        const foodInfoList = combinedData.bestFoods.list.filter(item => item.stdRestNm === restAreaName);
+
+        if (foodInfoList && foodInfoList.length > 0) {
+            return foodInfoList.map(foodInfo => ({
+                foodName: foodInfo.foodNm,
+                price: foodInfo.foodCost,
+            }));
+        }
+
+        console.log("해당 휴게소의 음식 정보를 찾지 못했습니다.");
+        return null;
+    };
+
+    // =============================================================== 디테일 페이지에 메뉴정보 로직 끝 ================================================================================
+
+
+    // =============================================================== 디테일 페이지에 브랜드정보 로직  ================================================================================
+
+    const getSelectedRestAreaRestBrands = (restAreaName) => {
+        if (!combinedData || !combinedData.restBrands || !combinedData.restBrands.list) return null;
+
+        const brandList = combinedData.restBrands.list.filter(item => item.stdRestNm === restAreaName);
+
+        if (brandList) {
+            return brandList.map(brandList => ({
+                brandName : brandList.brdName,
+                stime : brandList.stime,
+                etime : brandList.etime,
+            }))
+        }
+        return null;
+    };
+
+
+
+
+
+    // =============================================================== 디테일 페이지에 브랜드정보 로직 끝 ================================================================================
 
     return(
         <>
@@ -273,7 +362,6 @@ export default function RestAreaInfo() {
                 {selectedRestArea && (
                     <div className={styles.detailPage}>
                         <div className={styles.imgBox}></div>
-                        <button className={styles.closeButton} onClick={closeDetailPage}></button>
                         <div className={styles.titDetail}>
                             <h2>{selectedRestArea}</h2>
                         </div>
@@ -290,7 +378,7 @@ export default function RestAreaInfo() {
                                         <img
                                             src={facilityIcons[facility].icon}
                                             alt={facilityIcons[facility].label}
-                                            />
+                                        />
                                         <span>{facilityIcons[facility].label}</span>
                                     </span>
                                 )
@@ -299,43 +387,84 @@ export default function RestAreaInfo() {
                         <div className={styles.infoBox}>
                             <div className={styles.infoTit}>
                                 <h2>시설정보</h2>
-                                <span className={styles.upDate}>2024.08.01 업데이트</span>
+                                <span className={styles.upDate}>{currentDate} 업데이트</span>
                             </div>
                             <div className={styles.fuelDetail}>
                                 <h3>주유소, 충전소</h3>
                                 <div className={styles.fuelBox}>
                                     <table className={styles.fuelTable}>
                                         <thead>
-                                            <tr>
-                                                 <th>유종</th>
-                                                 <th>가격</th>
-                                            </tr>
+                                        <tr>
+                                            <th>유종</th>
+                                            <th>가격</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
+                                        {selectedRestAreaFuelPrices ? (
+                                            <>
+                                                <tr>
+                                                    <td>휘발유</td>
+                                                    <td>{selectedRestAreaFuelPrices.gasoline}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>경유</td>
+                                                    <td>{selectedRestAreaFuelPrices.disel}</td>
+                                                </tr>
+                                                {selectedRestAreaFuelPrices.lpg && (
+                                                    <tr>
+                                                        <td>LPG</td>
+                                                        <td>{selectedRestAreaFuelPrices.lpg}</td>
+                                                    </tr>
+                                                )}
+                                            </>
+                                        ) : (
                                             <tr>
-                                                <td>휘발유</td>
-                                                <td>1600원</td>
+                                                <td colSpan="2">가격 정보가 없습니다.</td>
                                             </tr>
-                                            <tr>
-                                                <td>경유</td>
-                                                <td>1300원</td>
-                                            </tr>
-                                            <tr>
-                                                <td>LPG</td>
-                                                <td>1200원</td>
-                                            </tr>
-
+                                        )}
                                         </tbody>
                                     </table>
-
                                 </div>
                             </div>
                         </div>
                         <div className={styles.menuBox}>
-                            <h2>메뉴 16</h2>
+                            <h2>메뉴 {selectedRestAreaBestFoods ? selectedRestAreaBestFoods.length : 0}개</h2>
+                            <div className={styles.bestMenuCont}>
+                                <ul>
+                                    {selectedRestAreaBestFoods && selectedRestAreaBestFoods.length > 0 ? (
+                                        selectedRestAreaBestFoods.map((food, index) => (
+                                            <li key={index}>
+                                                <div className={styles.menu}>
+                                                    <div className={styles.menuName}>
+                                                        {food.foodName}
+                                                    </div>
+                                                    <div className={styles.menuPrice}>
+                                                        <span>{food.price}</span>원
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        ))
+                                    ) : (
+                                        <li><span>메뉴 정보가 없습니다.</span></li>
+                                    )}
+                                </ul>
+                            </div>
                         </div>
                         <div className={styles.brandList}>
                             <h2>브랜드매장</h2>
+                            {selectedRestAreaRestBrands && selectedRestAreaRestBrands.length > 0 ? (
+                                selectedRestAreaRestBrands.map((brand, index) => (
+                                    <div key={index} className={styles.brandCont}>
+                                        <div className={styles.brandName}>{brand.brandName}</div>
+                                        <div className={styles.brandTime}>
+                                            <span>{brand.stime}</span>
+                                            <span>-{brand.etime}</span>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div>브랜드 매장 정보가 없습니다.</div>
+                            )}
                         </div>
                     </div>
                 )}
