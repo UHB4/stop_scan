@@ -179,13 +179,21 @@ export default function RestAreaInfo() {
             console.log('combinedData 또는 restAreas가 없습니다.');
             return null;
         }
-        // '휴게소'를 제거하고 매칭
-        const cleanRestAreaName = restAreaName.replace('휴게소', '').trim();
-        const restArea = combinedData.restAreas.find(area => area.휴게소명 === cleanRestAreaName);
+
+        // 먼저 원래 이름으로 매칭 시도
+        let restArea = combinedData.restAreas.find(area => area.휴게소명 === restAreaName);
+
+        // 찾지 못했다면 '휴게소'를 제거하고 다시 매칭 시도
         if (!restArea) {
-            console.log(`'${cleanRestAreaName}' 휴게소를 찾을 수 없습니다.`);
+            const cleanRestAreaName = restAreaName.replace('휴게소', '').trim();
+            restArea = combinedData.restAreas.find(area => area.휴게소명 === cleanRestAreaName);
+        }
+
+        if (!restArea) {
+            console.log(`'${restAreaName}' 휴게소를 찾을 수 없습니다.`);
             return null;
         }
+
         console.log('선택된 휴게소 정보:', restArea);
         console.log('이미지 URL:', restArea.이미지);
         return restArea.이미지;
