@@ -21,10 +21,8 @@ export default function RestAreaInfo() {
     const listRef = useRef(null);
     const selectedItemRef = useRef(null);
     const [selectedRestArea, setSelectedRestArea] = useState(null);
-    // 통합된 API 응답 데이터를 저장할 상태
-    const [combinedData, setCombinedData] = useState(null);
-    // 현재 선택된 방향
-    const [selectedDirection, setSelectedDirection] = useState('상행');
+    const [combinedData, setCombinedData] = useState(null);    // 통합된 API 응답 데이터를 저장할 상태
+    const [selectedDirection, setSelectedDirection] = useState('상행');    // 현재 선택된 방향
     const [selectedRestAreaFacilities, setSelectedRestAreaFacilities ] = useState([]);
 
     const handleStopScan = () => {
@@ -305,7 +303,32 @@ export default function RestAreaInfo() {
                             </div>
                             <div className={styles.fuelDetail}>
                                 <h3>주유소, 충전소</h3>
-                                <div className={styles.fuelBox}></div>
+                                <div className={styles.fuelBox}>
+                                    <table className={styles.fuelTable}>
+                                        <thead>
+                                            <tr>
+                                                 <th>유종</th>
+                                                 <th>가격</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>휘발유</td>
+                                                <td>1600원</td>
+                                            </tr>
+                                            <tr>
+                                                <td>경유</td>
+                                                <td>1300원</td>
+                                            </tr>
+                                            <tr>
+                                                <td>LPG</td>
+                                                <td>1200원</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
                             </div>
                         </div>
                         <div className={styles.menuBox}>
