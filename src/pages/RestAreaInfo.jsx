@@ -320,23 +320,37 @@ export default function RestAreaInfo() {
                                 className={`${styles.toSeoul} ${selectedDirection === '상행' ? styles.active : ''}`}
                                 onClick={() => handleDirectionClick('상행')}
                                 style={{
-                                    backgroundColor: selectedDirection === '상행' ? '#548DEE' : 'white',
+                                    backgroundColor: selectedDirection === '상행' ? 'white' : 'white',
+                                    border: selectedDirection === '상행' ? '1px solid #548DEE' : '',
                                     color: selectedDirection === '상행' ? 'white' : 'black'
                                 }}
                             >
-                                <div className={styles.arrowUp}></div>
-                                서울방향
+                                <div className={`${styles.arrowUp} ${selectedDirection ==='상행' ? styles.active : ''}`}
+                                onClick={()=> handleDirectionClick('상행')}
+                                style={{
+                                    backgroundColor: selectedDirection === '상행' ? '#548DEE' : '',
+                                }}
+                                >
+                        </div>
+                                <span className={styles.arrowText}>서울방향</span>
                             </button>
                             <button
                                 className={`${styles.toBusan} ${selectedDirection === '하행' ? styles.active : ''}`}
                                 onClick={() => handleDirectionClick('하행')}
                                 style={{
-                                    backgroundColor: selectedDirection === '하행' ? '#548DEE' : 'white',
+                                    backgroundColor: selectedDirection === '하행' ? 'white' : '',
+                                    border: selectedDirection === '하행' ? '1px solid #548DEE' : '',
                                     color: selectedDirection === '하행' ? 'white' : 'black'
                                 }}
                             >
-                                <div className={styles.arrowDown}></div>
-                                부산방향
+                                <div className={`${styles.arrowDown} ${selectedDirection === '하행' ? styles.active : ''}`}
+                                     onClick={() => handleDirectionClick('하행')}
+                                     style={{
+                                         backgroundColor: selectedDirection === '하행' ? '#548DEE' : '',
+                                     }}
+                                >
+                                </div>
+                                <span className={styles.arrowText}> 부산방향</span>
                             </button>
                         </div>
 
@@ -376,9 +390,9 @@ export default function RestAreaInfo() {
                                         <div className={styles.tit}>
                                             <a>{restArea.휴게소명}</a>
                                             <div className={styles.iconBox}>
-                                                <span>아이콘</span>
-                                                <span>아이콘</span>
-                                                <span>아이콘</span>
+                                                {/*<span>아이콘</span>*/}
+                                                {/*<span>아이콘</span>*/}
+                                                {/*<span>아이콘</span>*/}
                                             </div>
                                         </div>
                                     </li>
