@@ -28,7 +28,7 @@ const Header = ({ text }) => {
                 <ul onClick={(e) => e.stopPropagation()}>
                     <h1>STOP SCAN</h1>
                     <li><Link to="/RestAreaInfo">휴게소 안내</Link></li>
-                    <li>충전소 안내</li>
+                    <li><Link to="/GasStation">충전소 안내</Link></li>
                     <li>주유소 안내</li>
                 </ul>
             </div>

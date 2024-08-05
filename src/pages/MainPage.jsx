@@ -238,7 +238,10 @@ export default function MainPage() {
                                     <p>충전소</p>
                                     <p>정보제공</p></div>
                                 <div className={styles.img2}>
-                                    <button type="button" className={styles.arrow}></button>
+                                    <button type="button"
+                                            className={styles.arrow2}
+                                            onClick={()=> { navigate('/GasStation')}}
+                                    ></button>
                                 </div>
                             </div>
 

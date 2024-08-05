@@ -380,7 +380,7 @@ export default function RestAreaInfo() {
 
                     <div className={styles.menuCont}>
                         <div className={styles.listCount}>
-                            <h2>{getFilteredRestAreas().length}개</h2>
+                            <h2>총 <span>{getFilteredRestAreas().length}</span>개</h2>
                         </div>
                         <div className={styles.restList}>
                             <ul id={styles.conListUl}>

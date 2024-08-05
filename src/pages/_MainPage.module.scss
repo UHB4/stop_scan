@@ -355,6 +355,55 @@ html, body {
     }
 
 
+
+
+
+
+
+    .arrow2{
+      background: $background-light url("../assets/icons/arrowPrimary.svg") 50% 50% / 60px no-repeat;
+      width: 98px;
+      height: 98px;
+      border-radius: 100px;
+      position: absolute;
+      top: 43%;
+      left: 0;
+      transform: translateX(-50%);
+      @include tablet {
+        background: #548DEE url("../assets/icons/arrowPrimary.svg") 50% 50% / 30px no-repeat;
+        top: auto;
+        width: 70px;
+        height: 70px;
+        bottom: -35px;
+        left: 50%;
+        transform: translateX(-50%) rotate(90deg);
+      }
+
+      @include mobile {
+        background: #548DEE url("../assets/icons/arrowPrimary.svg") 50% 50% / 30px no-repeat;
+        top: auto;
+        width: 70px;
+        height: 70px;
+        bottom: -35px;
+        left: 50%;
+        transform: translateX(-50%) rotate(90deg);
+      }
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     .txt2{
       //background-color: green;
       width: 30vw;
