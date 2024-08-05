@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import LandingPage from "./pages/LandingPage";
 import MainPage from "./pages/MainPage"
 import RestAreaInfo from "./pages/RestAreaInfo";
-import GasStaion from "./pages/GasStaion";
+import GasStation from "./pages/GasStation";
 function App() {
   return (
     <div className="App">
@@ -12,7 +12,7 @@ function App() {
               <Route path="/" element={<LandingPage/> }/>
               <Route path="/mainpage" element={<MainPage/> }/>
               <Route path="/RestAreaInfo" element={ <RestAreaInfo/> } />
-                <Route path="/GasStaion" element={ <GasStaion/> } />
+                <Route path="/GasStation" element={ <GasStation/> } />
 
 
 
