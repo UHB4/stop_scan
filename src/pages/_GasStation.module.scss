@@ -12,7 +12,7 @@
 
 .mapContWrap {
   position: absolute;
-  width: 440px;
+  width: 400px;
   height: 80vh;
   top: 5vw;
   left: 20px;
@@ -23,6 +23,9 @@
 
   @include mobile {
     width: 100%;
+  }
+  &.hidden {
+    transform: translateX(-120%);
   }
 }
 
@@ -83,7 +86,7 @@
   display: flex;
   justify-content: space-between;
   padding: 10px 30px 10px 30px;
-  border-bottom: 1px solid #f4f3f3;
+  border-bottom: 1px solid #e6d7d7;
   span {
     color: $background-primary;
   }
@@ -109,7 +112,7 @@
     .on{
       display: flex;
       padding: 30px 30px 30px 30px;
-      border-bottom: 1px solid #f4f3f3;
+      border-bottom: 1px solid #e6d7d7;
       overflow: hidden;
       align-items: center;
       a{
@@ -126,15 +129,79 @@
         //margin-left: 5px;
       }
         .distance {
+          margin-left: 5px;
           font-size: 1.4rem;
         }
         span {
+          margin-left: 3px;
           font-size: 1.6rem;
         }
       }
     }
 }
+.closeButton {
+  position: fixed;
+  top: 48%;
+  left: calc(70px + 350px );
+  width: 30px;
+  height: 50px;
+  background-image: url("../assets/icons/caretLeft.svg");
+  background-position: center;
+  background-size: 80%;
+  background-color: $background-light;
+  background-repeat: no-repeat;
+  border-radius: 3px;
+  font-size: 1.6rem;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+}
 
+.openButton {
+  position: fixed;
+  top: 48%;
+  width: 30px;
+  height: 50px;
+  background-image: url("../assets/icons/caretRight.svg");
+  background-position: center;
+  background-size: 80%;
+  background-color: $background-light;
+  background-repeat: no-repeat;
+  border-radius: 3px;
+  font-size: 1.6rem;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: none;
+  outline: none;
+  z-index: 3;
+}
+
+
+.fuelOptions {
+  position: absolute;
+  top: 95%;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  gap: 15px;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 5px 4px 5px rgba(0,0,0,0.1);
+    label {
+      font-size: 1.3rem;
+    }
+
+    input[type="radio"] {
+      width: 17px;
+      height: 17px;
+      cursor: pointer;
+      accent-color: $background-primary;
+    }
+
+
+
+}
 
 
 

@@ -7,13 +7,16 @@ export default function GasStation({ radius, stations }) {
     const [center, setCenter] = useState({ lat: 37.566826, lng: 126.9786567 }); // 서울시청 좌표
     const [level, setLevel] = useState(3);
     const navigate = useNavigate();
+    const [isMapContVisible, setIsMapContVisible] = useState(true);
 
     const handleStopScan = () => {
         navigate('/mainpage')
     };
         // 사용자의 현재 위치를 가져오는 로직을 여기에 추가할 수 있습니다.
         // 예: navigator.geolocation.getCurrentPosition()
-
+    const toggleMapContVisibility = () => {
+        setIsMapContVisible(!isMapContVisible);
+    }
 
     return (
         <>
@@ -27,7 +30,7 @@ export default function GasStation({ radius, stations }) {
                         style={{width: "100%", height: "100vh"}}
                     >
                     </Map>
-                    <div className={styles.mapContWrap}>
+                    <div className={`${styles.mapContWrap} ${isMapContVisible ? '' : styles.hidden}`}>
                         <div className={styles.mapMenu}>
                             <h1 style={{color: "white", fontWeight: "900", cursor: "pointer"}}
                                 onClick={handleStopScan}>STOP SCAN</h1>
@@ -65,10 +68,76 @@ export default function GasStation({ radius, stations }) {
                                         <span className={styles.distance}> 1.41km</span>
                                     </div>
                                 </li>
+                                <li className={styles.on}>
+                                    <a>말죽거리 주유소</a>
+                                    <div className={styles.infoWrapper}>
+                                        <span className={styles.price}>1736 </span> <span> 원</span>
+                                        <span className={styles.distance}> 1.41km</span>
+                                    </div>
+                                </li>
+                                <li className={styles.on}>
+                                    <a>말죽거리 주유소</a>
+                                    <div className={styles.infoWrapper}>
+                                        <span className={styles.price}>1736 </span> <span> 원</span>
+                                        <span className={styles.distance}> 1.41km</span>
+                                    </div>
+                                </li>
+                                <li className={styles.on}>
+                                    <a>말죽거리 주유소</a>
+                                    <div className={styles.infoWrapper}>
+                                        <span className={styles.price}>1736 </span> <span> 원</span>
+                                        <span className={styles.distance}> 1.41km</span>
+                                    </div>
+                                </li>
+                                <li className={styles.on}>
+                                    <a>말죽거리 주유소</a>
+                                    <div className={styles.infoWrapper}>
+                                        <span className={styles.price}>1736 </span> <span> 원</span>
+                                        <span className={styles.distance}> 1.41km</span>
+                                    </div>
+                                </li>
                             </ul>
+                            <div className={styles.fuelOptions}>
+                                <label>
+                                    <input type="radio" name="fuelType" value=""/>
+                                    <span className={styles.checkMark}>
+                                               휘발유
+                                           </span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="fuelType" value=""/>
+                                    <span className={styles.checkMark}>
+                                               경유
+                                           </span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="fuelType" value=""/>
+                                    <span className={styles.checkMark}>
+                                               고급 휘발유
+                                           </span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="fuelType" value=""/>
+                                    <span className={styles.checkMark}>
+                                               실내 등유
+                                           </span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="fuelType" value=""/>
+                                    <span className={styles.checkMark}>
+                                               자동차 부탄
+                                           </span>
+                                </label>
+
+                            </div>
+
                         </div>
                     </div>
-
+                    {isMapContVisible ? (
+                        <button className={styles.closeButton} onClick={toggleMapContVisibility}></button>
+                    ) : (
+                        <button className={styles.openButton} onClick={toggleMapContVisibility}></button>
+                    )}
                 </div>
 
             </div>
