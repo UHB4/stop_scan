@@ -235,7 +235,7 @@ export default function MainPage() {
                         <div className={styles.restWrapContent2}>
                             <div className={styles.restContent2}>
                                 <div className={styles.txt2}>
-                                    <p>충전소</p>
+                                    <p>주유소</p>
                                     <p>정보제공</p></div>
                                 <div className={styles.img2}>
                                     <button type="button"
@@ -256,7 +256,7 @@ export default function MainPage() {
                                     <button type="button" className={styles.arrow}></button>
                                 </div>
                                 <div className={styles.txt}>
-                                    <p>주유소</p>
+                                    <p>충전소</p>
                                     <p>정보제공</p></div>
                             </div>
                         </div>

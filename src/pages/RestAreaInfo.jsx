@@ -11,6 +11,7 @@ import wheat from '../assets/icons/wheat.svg';
 import bed from '../assets/icons/bed.svg'
 import barber from '../assets/icons/barber.svg'
 import locationDot from '../assets/icons/locationDot.svg';
+import config from '../Config';
 
 export default function RestAreaInfo() {
     const [position, setPosition] = useState({lat:36.5, lng: 127.5});
@@ -42,11 +43,12 @@ export default function RestAreaInfo() {
     const fetchAllData = async (routeNm) => {
         try {
             const urls = [
-                `http://localhost:5000/restareas?route=${encodeURIComponent(routeNm)}`, // 휴게소 데이터를 받아오는 엔드포인트
-                `http://localhost:5000/restbrands?routeNm=${encodeURIComponent(routeNm)}`, // 휴게소 입점브랜드를 받아오는 엔드포인트
-                `http://localhost:5000/fuelprices?routeNm=${encodeURIComponent(routeNm)}`, // 휴게소 주유소 유류정보를 받아오는 엔드포인트
-                `http://localhost:5000/facilities?routeNm=${encodeURIComponent(routeNm)}`, // 휴게소 편의시설 정보를 받아오는 엔드포인트
-                `http://localhost:5000/bestfoods?routeNm=${encodeURIComponent(routeNm)}` // 휴게소 음식메뉴 정보를 받아오는 엔드포인트
+                `${config.API_BASE_URL}/restareas?route=${encodeURIComponent(routeNm)}`,// 휴게소 데이터를 받아오는 엔드포인트
+                `${config.API_BASE_URL}/restbrands?routeNm=${encodeURIComponent(routeNm)}`,     // 휴게소 입점브랜드를 받아오는 엔드포인트
+                `${config.API_BASE_URL}/fuelprices?routeNm=${encodeURIComponent(routeNm)}`,// 휴게소 주유소 유류정보를 받아오는 엔드포인트
+                `${config.API_BASE_URL}/facilities?routeNm=${encodeURIComponent(routeNm)}`, // 휴게소 편의시설 정보를 받아오는 엔드포인트
+                `${config.API_BASE_URL}/bestfoods?routeNm=${encodeURIComponent(routeNm)}`   // 휴게소 음식메뉴 정보를 받아오는 엔드포인트
+
             ];
 
             const responses = await Promise.all(urls.map(url => fetch(url)));

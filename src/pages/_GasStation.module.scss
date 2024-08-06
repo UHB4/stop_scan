@@ -108,37 +108,64 @@
 }
 .gasList {
   flex: 1;
+  height: 400px;
   overflow-y: auto;
-    .on{
-      display: flex;
-      padding: 30px 30px 30px 30px;
-      border-bottom: 1px solid #e6d7d7;
-      overflow: hidden;
-      align-items: center;
-      a{
-        font-size: 1.6rem;
-        flex: 1;
-      }
-      .infoWrapper {
-        display: flex;
-        align-items: center;
-      .price {
-        font-size: 1.6rem;
-        font-weight: bold;
-      ;
-        //margin-left: 5px;
-      }
-        .distance {
-          margin-left: 5px;
-          font-size: 1.4rem;
-        }
-        span {
-          margin-left: 3px;
-          font-size: 1.6rem;
-        }
-      }
-    }
+
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  /* 스크롤바 트랙 스타일 */
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  /* 스크롤바 핸들 스타일 */
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, $background-primary, darken($background-primary, 10%));
+    border-radius: 10px;
+    border: 2px solid #f1f1f1;
+  }
+
+  /* 스크롤바 핸들 호버 효과 */
+  &::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, darken($background-primary, 5%), darken($background-primary, 15%));
+  }
 }
+
+.on{
+  display: flex;
+  padding: 30px 30px 30px 30px;
+  border-bottom: 1px solid #e6d7d7;
+  overflow-y:auto;
+  align-items: center;
+  a{
+    font-size: 1.6rem;
+    flex: 1;
+  }
+  .infoWrapper {
+    display: flex;
+    align-items: center;
+    .price {
+      font-size: 1.6rem;
+      font-weight: bold;
+    ;
+      //margin-left: 5px;
+    }
+    .distance {
+      margin-left: 5px;
+      font-size: 1.4rem;
+    }
+    span {
+      margin-left: 3px;
+      font-size: 1.6rem;
+    }
+  }
+}
+
+
+
 .closeButton {
   position: fixed;
   top: 48%;
@@ -155,6 +182,9 @@
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   z-index: 3;
+  &:hover {
+    border: 3px solid $background-primary;
+  }
 }
 
 .openButton {
@@ -174,6 +204,9 @@
   border: none;
   outline: none;
   z-index: 3;
+  &:hover {
+    border: 3px solid $background-primary;
+  }
 }
 
 
