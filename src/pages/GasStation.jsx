@@ -14,10 +14,13 @@ export default function GasStation() {
     const [isMapContVisible, setIsMapContVisible] = useState(true);
     const [radius, setRadius] = useState(1); // 검색반경 초기 값을 1km로 설정
     const [gasStations, setGasStations] = useState([]); // 주유소 데이터를 저장할 상태
+    const [gasDetail, setGasDetail] = useState([]);
     const [gasStationCount, setGasStationCount] = useState(0); // 주유소 개수를 저장하는 상태
     const [selectedSort, setSelectedSort] = useState(''); // 선택된 정렬 방식을 저장하는 상태
     const [fuelType, setFuelType] = useState('B027') // 초기 연류유형 설정(휘발유)
     const [userLocation, setUserLocation] = useState(null); // 사용자 위치를 지정할 상태
+    const [isVisble, setIsVisible] = useState(true);
+    const [selectedStation, setSelectedStation] = useState(null);
 
 
     function convertMetersTokilometers(meters) {
@@ -28,8 +31,6 @@ export default function GasStation() {
     const handleStopScan = () => {
         navigate('/mainpage')
     };
-        // 사용자의 현재 위치를 가져오는 로직을 여기에 추가할 수 있습니다.
-        // 예: navigator.geolocation.getCurrentPosition()
     const toggleMapContVisibility = () => {   // isMapContVisible 상태를 반전시켜 mapContWrap 을 보이거나 숨기는 함수
                                                     // isMapContVisible이 true일 때 호출되면 false로 변경하여 컨테이너숨김
                                                     // isMapContVisible이 false일 때 호출되면 true로 변경하여 컨테이너숨김
@@ -40,6 +41,7 @@ export default function GasStation() {
     const fetchStationsWithRadius = (radiusValue) => {
         navigator.geolocation.getCurrentPosition(position => {
             const {latitude, longitude} = position.coords;
+            console.log('사용자위치:', latitude, longitude);
             setUserLocation({lat: latitude, lng: longitude}); // 사용자 위치 업데이트
             setCenter({ lat: latitude, lng: longitude }); // 지도 중심 업데이트
             setLevel(getZoomLevel(radiusValue));
@@ -50,7 +52,7 @@ export default function GasStation() {
                 prodcd: fuelType
             })
                 .then(response => {
-                    console.log('API 응답 데이터:', response.data);
+                    console.log('주유소 데이터:', response.data);
                     setGasStations(response.data);
                     setGasStationCount(response.data.length);
                 })
@@ -60,6 +62,23 @@ export default function GasStation() {
         })
     }
 
+    const fetchStationDetail = (stationId)=> {
+        axios.post(`${config.API_BASE_URL}/stations-detail`, {
+            id: stationId,
+        })
+
+            .then(response => {
+                setSelectedStation(response.data[0])
+                console.log('주유소 디테일 데이터:', response.data);
+            })
+            .catch(error => {
+                console.error("주유소 디테일 가져오기 실패:", error);
+            })
+    }
+
+
+
+    // 반경 선택에 따라 맵에 줌 레벨 설정
     const getZoomLevel = (radiusValue) => {
         switch (parseInt(radiusValue)) {
             case 1: return 5;
@@ -73,6 +92,16 @@ export default function GasStation() {
     useEffect(() => {
         fetchStationsWithRadius(radius, fuelType);
     }, [radius, fuelType]);
+
+
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setIsVisible(prev => !prev);
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    })
 
 
 
@@ -95,6 +124,8 @@ export default function GasStation() {
     }
 
     const sortedGasStations = sortGasStaion(gasStations, selectedSort);
+
+    const detailStations = gasStations
 
     const filteredStations = sortedGasStations.filter(station =>
         parseFloat(station.distance) <= radius * 1000
@@ -121,12 +152,11 @@ export default function GasStation() {
                                 <Circle
                                     center={userLocation}
                                     radius={radius * 1000}
-                                    strokeWeight={1}
-                                    strokeColor={"#75B8FA"}
-                                    strokeOpacity={0.1}
-                                    strokeStyle={"dash"}
-                                    fillColor={"#CFE7FF"}
-                                    fillOpacity={0.2}
+                                    strokeWeight={2}
+                                    strokeColor={"#78CFE0"}
+                                    strokeOpacity={isVisble ? 0.7 : 0}
+                                    fillColor={"#e5effc"}
+                                    fillOpacity={isVisble ? 0.5 : 0}
                                 />
                             </>
                         )}
@@ -170,7 +200,7 @@ export default function GasStation() {
                         <div className={styles.gasList}>
                             <ul id={styles.conList}>
                                 {filteredStations.map((station, index) => (
-                                    <li key={index} className={styles.on}>
+                                    <li key={index} className={styles.on} onClick={() => fetchStationDetail(station.station_id)}>
                                         <a>{station.name}</a>
                                         <div className={styles.infoWrapper}>
                                             <span className={styles.price}>{station.price} </span> <span> 원</span>
@@ -207,6 +237,74 @@ export default function GasStation() {
                         <button className={styles.closeButton} onClick={toggleMapContVisibility}></button>
                     ) : (
                         <button className={styles.openButton} onClick={toggleMapContVisibility}></button>
+                    )}
+
+                    {/*====================================상세페이지 부분========================================================*/}
+
+
+
+                    {selectedStation && (
+                        <div className={styles.detailPage}>
+                            <div className={styles.LogoBox}>
+                                <div className={styles.Logo}></div>
+                            </div>
+                            <div className={styles.titDetail}>
+                                <h2>{selectedStation.name}</h2>
+                                <p>{selectedStation.tel}</p>
+                                <p>{selectedStation.address}</p>
+                            </div>
+                            <div className={styles.iconBox}>
+                                <h3>편의시설</h3>
+                                <span className={styles.icons}>
+
+                                </span>
+                            </div>
+                            <div className={styles.infoBox}>
+                                <div className={styles.infoTit}>
+                                    <h3>유류정보</h3>
+                                    <div className={styles.upDate}>
+                                    <span>마지막 업데이트</span>
+                                    <span className={styles.updateDate}>2024.08.07</span>
+                                    <span className={styles.updateTime}>10:51:52</span>
+                                    </div>
+                                </div>
+                            <div className={styles.fuelBox}>
+                                <table className={styles.fuelTable}>
+                                    <thead>
+                                    <tr>
+                                        <th>유종</th>
+                                        <th>가격</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <>
+                                        <tr>
+                                            <td>휘발유</td>
+                                            <td>1700원</td>
+                                        </tr>
+                                        <tr>
+                                            <td>경유</td>
+                                            <td>1600원</td>
+                                        </tr>
+                                        <tr>
+                                            <td>고급휘발유</td>
+                                            <td>1900원</td>
+                                        </tr>
+                                        <tr>
+                                            <td>실내등유</td>
+                                            <td>1500원</td>
+                                        </tr>
+                                        <tr>
+                                            <td>자동차부탄</td>
+                                            <td>1500원</td>
+                                        </tr>
+                                    </>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
+
+                        </div>
                     )}
                 </div>
             </div>

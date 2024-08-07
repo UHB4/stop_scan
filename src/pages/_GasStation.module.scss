@@ -136,7 +136,7 @@
 
 .on{
   display: flex;
-  padding: 30px 30px 30px 30px;
+  padding: 30px;
   border-bottom: 1px solid #e6d7d7;
   overflow-y:auto;
   align-items: center;
@@ -235,6 +235,132 @@
 
 
 }
+
+//================================상세페이지 부분=======================================
+
+.detailPage {
+  position: absolute;
+  top: 5vw;
+  right: 0;
+  left: 410px;
+  width: 350px;
+  height: 80%;
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none;  // Firefox
+  -ms-overflow-style: none;  // IE and Edge
+  @include mobile {
+    position: absolute;
+    width: 100%;
+    left: 0;
+  }
+  &.open {
+  }
+  .LogoBox { // 이미지 박스
+    display: flex;
+    width: 100%;
+    height: 155px;
+    align-items: center;
+    justify-content: center;
+    .Logo {
+      width: 91%;
+      height: 100px;
+      background-color: blue;
+    }
+  }
+}
+
+
+.titDetail { // 휴게소 이름
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #f4f3f3;
+  line-height: 30px;
+  p {
+      font-weight: lighter;
+      font-size: 1.4rem;
+  }
+}
+
+.iconBox { // 아이콘 박스
+  padding: 0 15px 0 15px ;
+  display: flex;
+  height: 100px;
+  border-bottom: 1px solid #f4f3f3;
+  overflow: hidden;
+
+
+  .icons {
+    display: grid;
+    align-items: center;
+    margin-right: 35px;
+    gap: 9px;
+    img {
+      width: 30px;
+      height: 20px;
+    }
+
+    span {
+      position: relative;
+      margin: 0;
+      left: 2px;
+      white-space: nowrap;
+    }
+  }
+}
+.infoBox { // 시설정보
+  height: 210px;
+  border-bottom: 1px solid #f4f3f3;
+  .infoTit {
+    display: flex;
+    padding: 15px;
+    justify-content: space-between;
+    span {
+      font-weight: lighter;
+      margin-right: 5px;
+    }
+    .updateDate {
+      margin-right: 5px;
+    }
+  }
+}
+
+.fuelBox {
+  height: 140px;
+  margin-top: 10px;
+  //background-color: #D9D9D9;
+  display: flex;
+  justify-content: center;
+  .fuelTable {
+    width: 91%;
+    font-size: 1rem;
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #e0e0e0;
+      //border-right:  1px solid #e0e0e0;
+    }
+    th {
+      background-color: #f0f0f0;
+      font-weight: bold;
+    }
+    tr:last-child td {
+      //border-bottom: none;
+    }
+    tr:nth-child(even) {
+      background-color: #f5f5f5;
+    }
+  }
+
+
+}
+
+
+
 
 
 
