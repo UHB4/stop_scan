@@ -143,13 +143,20 @@ export default function RestAreaInfo() {
         "서울양양선(서울-춘천)", "서울외곽순환선"
     ];
 
+    // RestAreaInfo.jsx
+
     const getFilteredRestAreas = () => {
         if (!combinedData || !combinedData.restAreas) return [];
+
+        // restAreas가 배열인지 확인
+        const restAreasArray = Array.isArray(combinedData.restAreas)
+            ? combinedData.restAreas
+            : combinedData.restAreas.list || [];
 
         // 중복 제거 및 필터링을 위한 Set 객체 생성
         const uniqueRestAreas = new Set();
 
-        const filteredAreas = combinedData.restAreas
+        const filteredAreas = restAreasArray
             .map(restArea => {
                 // 각 항목의 이름을 수정
                 let modifiedName = typeof restArea.휴게소명 === 'string' ? restArea.휴게소명 : String(restArea.휴게소명);
@@ -175,6 +182,8 @@ export default function RestAreaInfo() {
 
         return filteredAreas;
     }
+
+// 컴포넌트 내의 다른 부분에서도 restAreas에 접근할 때 비슷한 방식으로 안전하게 처리
     // =============================================디테일 페이지 이미지박스 ===========================================================
     const getSelectedRestAreaImage = (restAreaName) => {
         if (!combinedData || !combinedData.restAreas) {
