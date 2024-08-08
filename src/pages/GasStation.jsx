@@ -4,14 +4,60 @@ import { Map, MapMarker, CustomOverlayMap, Circle } from "react-kakao-maps-sdk";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import config from "../Config";
+import repair from "../assets/icons/repair.svg"
+import carWash from "../assets/icons/carWash.png"
+import shoppingCart from "../assets/icons/shoppingCart.svg"
+import fuelIcon from "../assets/icons/fuel.png"
 
 
+// 브랜드 로고 이미지 import
+import GSCLogo from "../assets/brandLogos/GSC.png";
+import HDOLogo from "../assets/brandLogos/HDO.png";
+import NHOLogo from "../assets/brandLogos/NHO.png";
+import RTELogo from "../assets/brandLogos/RTE.png";
+import RTXLogo from "../assets/brandLogos/RTX.png";
+import SKELogo from "../assets/brandLogos/SKE.png";
+import SKGLogo from "../assets/brandLogos/SKG.png";
+import SOLLogo from "../assets/brandLogos/SOL.png";
+
+// 주유 코드를 한글로 변환하는 함수
+const getProductName = (productCode) => {
+    switch (productCode) {
+        case 'B027' : return '휘발유';
+        case 'D047' : return '경유';
+        case 'B034' : return '고급휘발유';
+        case 'C004' : return '실내유';
+        case 'K015' : return '자동차부탄';
+        default: return '알 수 없음';
+    }
+};
+
+// 날짜와 시간 포맷팅 함수
+const formatDateTime = (date, time) => {
+    const formattedDate = `${date.slice(0, 4)}.${date.slice(4, 6)}.${date.slice(6, 8)}`;
+    const formattedTime = `${time.slice(0, 2)}:${time.slice(2, 4)}:${time.slice(4, 6)}`;
+    return { formattedDate, formattedTime };
+};
+
+
+// 브랜드 로고 매핑 객체
+const brandbrandLogos = {
+    GSC: GSCLogo,
+    HDO: HDOLogo,
+    NHO: NHOLogo,
+    RTE: RTELogo,
+    RTX: RTXLogo,
+    SKE: SKELogo,
+    SKG: SKGLogo,
+    SOL: SOLLogo,
+};
 
 export default function GasStation() {
     const [center, setCenter] = useState({ lat: 37.566826, lng: 126.9786567 }); // 서울시청 좌표
     const [level, setLevel] = useState(3);
     const navigate = useNavigate();
     const [isMapContVisible, setIsMapContVisible] = useState(true);
+    const [isDetailVisible, setIsDetailVisible] = useState(true);
     const [radius, setRadius] = useState(1); // 검색반경 초기 값을 1km로 설정
     const [gasStations, setGasStations] = useState([]); // 주유소 데이터를 저장할 상태
     const [gasDetail, setGasDetail] = useState([]);
@@ -35,6 +81,9 @@ export default function GasStation() {
                                                     // isMapContVisible이 true일 때 호출되면 false로 변경하여 컨테이너숨김
                                                     // isMapContVisible이 false일 때 호출되면 true로 변경하여 컨테이너숨김
         setIsMapContVisible(!isMapContVisible);
+    }
+    const toggleDetailVisibility = () => {
+        setIsDetailVisible(!isDetailVisible);
     }
 
     //주유소 정보를 반경에 따라 가져오는 함수
@@ -125,11 +174,11 @@ export default function GasStation() {
 
     const sortedGasStations = sortGasStaion(gasStations, selectedSort);
 
-    const detailStations = gasStations
 
     const filteredStations = sortedGasStations.filter(station =>
         parseFloat(station.distance) <= radius * 1000
     );
+
 
     return (
         <>
@@ -164,7 +213,18 @@ export default function GasStation() {
                             <MapMarker
                                 key={index}
                                 position={{lat: station.latitude, lng: station.longitude}}
+                                image={{
+                                    src: fuelIcon,
+                                    size: {
+                                        width: 24,
+                                        height: 35
+                                    },
+                                }}
                                 title={station.name}
+                                onClick={() => {
+                                    fetchStationDetail(station.station_id);
+                                    setIsDetailVisible(true);
+                                }}
                             />
                         ))}
                     </Map>
@@ -200,7 +260,10 @@ export default function GasStation() {
                         <div className={styles.gasList}>
                             <ul id={styles.conList}>
                                 {filteredStations.map((station, index) => (
-                                    <li key={index} className={styles.on} onClick={() => fetchStationDetail(station.station_id)}>
+                                    <li key={index} className={styles.on} onClick={() => {
+                                        fetchStationDetail(station.station_id);
+                                        setIsDetailVisible(true);
+                                    }}>
                                         <a>{station.name}</a>
                                         <div className={styles.infoWrapper}>
                                             <span className={styles.price}>{station.price} </span> <span> 원</span>
@@ -243,66 +306,87 @@ export default function GasStation() {
 
 
 
-                    {selectedStation && (
-                        <div className={styles.detailPage}>
+                    {selectedStation && selectedStation.oil_prices && selectedStation.oil_prices.length > 0 && (
+                        <div className={`${styles.detailPage} ${isDetailVisible ? '' : styles.hidden}`}>
                             <div className={styles.LogoBox}>
-                                <div className={styles.Logo}></div>
+                                <div className={styles.LogoBox}>
+                                    {selectedStation.brand && brandbrandLogos[selectedStation.brand] ? (
+                                        <img
+                                            src={brandbrandLogos[selectedStation.brand]}
+                                            alt={`${selectedStation.brand} 로고`}
+                                            className={styles.Logo}
+                                        />
+                                    ) : (
+                                        <div className={styles.Logo}>로고 없음</div>
+                                    )}
+                                </div>
                             </div>
                             <div className={styles.titDetail}>
                                 <h2>{selectedStation.name}</h2>
                                 <p>{selectedStation.tel}</p>
                                 <p>{selectedStation.address}</p>
                             </div>
+                            <h3>편의시설</h3>
                             <div className={styles.iconBox}>
-                                <h3>편의시설</h3>
-                                <span className={styles.icons}>
-
-                                </span>
+            <span className={styles.icons}>
+              {selectedStation.repair === 'Y' && (
+                  <div className={styles.iconTxt}>
+                      <img src={repair} alt="경정비 시설"/>
+                      <span>경정비 시설</span>
+                  </div>
+              )}
+                {selectedStation.car_wash === 'Y' && (
+                    <div className={styles.iconTxt}>
+                        <img src={carWash} alt="세차장"/>
+                        <span>세차장</span>
+                    </div>
+                )}
+                {selectedStation.store === 'Y' && (
+                    <div className={styles.iconTxt}>
+                        <img src={shoppingCart} alt="편의점"/>
+                        <span>편의점</span>
+                    </div>
+                )}
+            </span>
                             </div>
                             <div className={styles.infoBox}>
                                 <div className={styles.infoTit}>
                                     <h3>유류정보</h3>
                                     <div className={styles.upDate}>
-                                    <span>마지막 업데이트</span>
-                                    <span className={styles.updateDate}>2024.08.07</span>
-                                    <span className={styles.updateTime}>10:51:52</span>
+                                        <span>마지막 업데이트</span>
+                                        {(() => {
+                                            const {date, time} = selectedStation.oil_prices[0];
+                                            const {formattedDate, formattedTime} = formatDateTime(date, time);
+                                            return (
+                                                <>
+                                                    <span className={styles.updateDate}>{formattedDate}</span>
+                                                    <span className={styles.updateTime}>{formattedTime}</span>
+                                                </>
+                                            );
+                                        })()}
                                     </div>
                                 </div>
-                            <div className={styles.fuelBox}>
-                                <table className={styles.fuelTable}>
-                                    <thead>
-                                    <tr>
-                                        <th>유종</th>
-                                        <th>가격</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <>
+                                <div className={styles.fuelBox}>
+                                    <table className={styles.fuelTable}>
+                                        <thead>
                                         <tr>
-                                            <td>휘발유</td>
-                                            <td>1700원</td>
+                                            <th>유종</th>
+                                            <th>가격</th>
                                         </tr>
-                                        <tr>
-                                            <td>경유</td>
-                                            <td>1600원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>고급휘발유</td>
-                                            <td>1900원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>실내등유</td>
-                                            <td>1500원</td>
-                                        </tr>
-                                        <tr>
-                                            <td>자동차부탄</td>
-                                            <td>1500원</td>
-                                        </tr>
-                                    </>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                        {selectedStation.oil_prices.map((oil, index) => (
+                                            <tr key={index}>
+                                                <td>{getProductName(oil.product_code)}</td>
+                                                <td>{oil.price}원</td>
+                                            </tr>
+                                        ))}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            </div>
+                            <button className={styles.closeButton2} onClick={toggleDetailVisibility}></button>
+
 
                         </div>
                     )}
