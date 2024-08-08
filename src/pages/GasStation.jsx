@@ -67,6 +67,7 @@ export default function GasStation() {
     const [userLocation, setUserLocation] = useState(null); // 사용자 위치를 지정할 상태
     const [isVisble, setIsVisible] = useState(true);
     const [selectedStation, setSelectedStation] = useState(null);
+    const [selectedStationId, setSelectedStationId] = useState(null);
 
 
     function convertMetersTokilometers(meters) {
@@ -180,6 +181,13 @@ export default function GasStation() {
     );
 
 
+    const handleStationClick = (stationId) => {
+        fetchStationDetail(stationId);
+        setIsDetailVisible(true);
+        setSelectedStationId(stationId);
+    };
+
+
     return (
         <>
             <div className={styles.wrap}>
@@ -260,14 +268,16 @@ export default function GasStation() {
                         <div className={styles.gasList}>
                             <ul id={styles.conList}>
                                 {filteredStations.map((station, index) => (
-                                    <li key={index} className={styles.on} onClick={() => {
-                                        fetchStationDetail(station.station_id);
-                                        setIsDetailVisible(true);
-                                    }}>
+                                    <li
+                                        key={index}
+                                        className={`${styles.on} ${selectedStationId === station.station_id ? styles.selected : ''}`}
+                                        onClick={() => handleStationClick(station.station_id)}
+                                    >
                                         <a>{station.name}</a>
                                         <div className={styles.infoWrapper}>
                                             <span className={styles.price}>{station.price} </span> <span> 원</span>
-                                            <span className={styles.distance}> {convertMetersTokilometers(station.distance)}km</span>
+                                            <span
+                                                className={styles.distance}> {convertMetersTokilometers(station.distance)}km</span>
                                         </div>
                                     </li>
                                 ))}

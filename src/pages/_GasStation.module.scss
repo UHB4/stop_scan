@@ -140,6 +140,15 @@
   border-bottom: 1px solid #e6d7d7;
   overflow-y:auto;
   align-items: center;
+  cursor: pointer;
+  &:hover {
+    background-color: #f0f0f0;
+  }
+  &.selected {
+    background-color: #548DEE;
+    font-weight: bold;
+  }
+
   a{
     font-size: 1.6rem;
     flex: 1;
