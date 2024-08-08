@@ -234,7 +234,7 @@ export default function GasStation() {
                                 {selectedStationId === station.station_id && (
                                     <Circle
                                         center={{lat: station.latitude, lng: station.longitude}}
-                                        radius={75}
+                                        radius={40}
                                         strokeColor={"#548DEE"}
                                         strokeOpacity={0.7}
                                         strokeStyle={"solid"}
