@@ -5,10 +5,11 @@
 실시간 정보, 주변 편의시설 등을 한눈에 확인할 수 있다.
 
 ## 기능
-- 고속도로별 휴게소 정보 조회
+- 메인페이지 (https://stopscan.store)
+- 고속도로별 휴게소 정보 조회 (https://stopscan.store/RestAreaInfo)
 - 휴게소 상세 정보 및 편의시설 확인
 - 지도 기반 휴게소 위치확인
-- 주변 주유소 및 충전소 실시간 상태확인
+- 주변 주유소 및 충전소 실시간 상태확인 (https://stopscan.store/GasStation)
 
 ## 
 # 개발 환경
@@ -84,4 +85,20 @@ HTTPS 설정
 - 실제 도메인으로 접속 테스트                                                                                                                               
 
 ## 형상관리
+Github desktop을 사용하여 형상관리를 수행.
+Git의 모든 기능을 GUI로 제공하여,커맨드라인을 사용하
 
+<img width="227" alt="형상관리1" src="https://github.com/user-attachments/assets/f69ced85-01f8-4c89-a0ba-233b4931b78b">
+- 
+GitHub Desktop은 파일의 변경사항을 시각적으로 쉽게 확인할 수 있도록 도와줌.    
+파일을 추가, 수정, 삭제할 때마다 해당 내용이 명확하게 표시되므로, 
+  실수로 인한 오류를 줄일 수 있음.
+
+
+   
+
+<img width="178" alt="형상관리2" src="https://github.com/user-attachments/assets/e4dc0899-6096-45e6-a5ac-5c30f3ec5bd1">
+
+GitHub Desktop의 브랜치 관리 기능을 활용하여, 서로 다른 기능을 개발하거나,     
+새로운 시도를 할 때마다 별도의 브랜치를 생성하여 작업할 수 있음.    
+이로 인해 메인 브랜치의 안정성을 유지하면서도 새로운 기능을 병렬로 개발할 수 있었음.
