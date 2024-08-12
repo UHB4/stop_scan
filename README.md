@@ -10,7 +10,9 @@
 - 휴게소 상세 정보 및 편의시설 확인
 - 지도 기반 휴게소 위치확인
 - 주변 주유소 및 충전소 실시간 상태확인 (https://stopscan.store/GasStation)
+## 피그마
 
+- https://www.figma.com/design/PDe5po2rrcjGvBbvtSO6G4/Figma-basics?node-id=617-2279&t=68lafPCvl9kVvMh9-0
 ## 
 # 개발 환경
 - intellij
