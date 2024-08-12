@@ -43,7 +43,7 @@ export default function Cloud({ position = 'top' }) {
                 start: position === 'top' ? "top 10%" : "top 10%",
                 end: position === 'top' ? "bottom top" : "bottom center",
                 scrub: 1,
-                markers: true,
+                // markers: true,
             }
         });
 

@@ -62,7 +62,7 @@ export default function MainPage() {
                     end: "+=2000",
                     scrub: true,
                     pin: true,
-                    anticipatePin: 1,
+                    // anticipatePin: 1,
                     onEnter: () => {
                         section1EndTrigger.disable();
                         console.log('메인 타임라인 진입');

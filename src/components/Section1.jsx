@@ -35,7 +35,6 @@ const Section1 = forwardRef((props, ref) => {
             scrub: true,
             pin: true,
             anticipatePin: 1,
-            // markers: true,
         });
 
         return () => {
