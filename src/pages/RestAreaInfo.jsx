@@ -34,7 +34,7 @@ export default function RestAreaInfo() {
 
 
     const handleStopScan = () => {
-        navigate('/mainpage')
+        navigate('/')
     };
 
     const toggleDropdown = () => setIsOpen(!isOpen);

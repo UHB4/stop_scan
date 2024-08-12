@@ -76,7 +76,7 @@ export default function GasStation() {
 
 
     const handleStopScan = () => {
-        navigate('/mainpage')
+        navigate('/')
     };
     const toggleMapContVisibility = () => {   // isMapContVisible 상태를 반전시켜 mapContWrap 을 보이거나 숨기는 함수
                                                     // isMapContVisible이 true일 때 호출되면 false로 변경하여 컨테이너숨김
