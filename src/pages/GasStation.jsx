@@ -89,27 +89,40 @@ export default function GasStation() {
 
     //주유소 정보를 반경에 따라 가져오는 함수
     const fetchStationsWithRadius = (radiusValue) => {
-        navigator.geolocation.getCurrentPosition(position => {
-            const {latitude, longitude} = position.coords;
-            console.log('사용자위치:', latitude, longitude);
-            setUserLocation({lat: latitude, lng: longitude}); // 사용자 위치 업데이트
-            setCenter({ lat: latitude, lng: longitude }); // 지도 중심 업데이트
-            setLevel(getZoomLevel(radiusValue));
-            axios.post(`${config.API_BASE_URL}/get-stations`,{
-                latitude,
-                longitude,
-                radius: radiusValue * 1000,
-                prodcd: fuelType
-            })
-                .then(response => {
-                    console.log('주유소 데이터:', response.data);
-                    setGasStations(response.data);
-                    setGasStationCount(response.data.length);
+        const options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const {latitude, longitude} = position.coords;
+                console.log('사용자위치:', latitude, longitude);
+                setUserLocation({lat: latitude, lng: longitude});
+                setCenter({ lat: latitude, lng: longitude });
+                setLevel(getZoomLevel(radiusValue));
+
+                axios.post(`${config.API_BASE_URL}/get-stations`, {
+                    latitude,
+                    longitude,
+                    radius: radiusValue * 1000,
+                    prodcd: fuelType
                 })
-                .catch(error => {
-                    console.error("가져온 데이터 에러:", error)
-                })
-        })
+                    .then(response => {
+                        console.log('주유소 데이터:', response.data);
+                        setGasStations(response.data);
+                        setGasStationCount(response.data.length);
+                    })
+                    .catch(error => {
+                        console.error("가져온 데이터 에러:", error)
+                    })
+            },
+            error => {
+                console.error("위치를 가져오는데 실패했습니다:", error);
+            },
+            options
+        );
     }
 
     const fetchStationDetail = (stationId)=> {
