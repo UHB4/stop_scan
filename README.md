@@ -70,7 +70,7 @@
 
 
   
-- WinSCP를 이용한 파일 전송
+
 
   ![배포5](https://github.com/user-attachments/assets/1faabf59-74a9-4d7b-b470-69bfc239640e)
 
@@ -96,14 +96,12 @@ HTTPS 설정
 Github desktop을 사용하여 형상관리를 수행.
 Git의 모든 기능을 GUI로 제공하여,커맨드라인을 사용하
 
-<img width="227" alt="형상관리1" src="https://github.com/user-attachments/assets/f69ced85-01f8-4c89-a0ba-233b4931b78b">
-- 
+<img width="227" alt="형상관리1" src="https://github.com/user-attachments/assets/f69ced85-01f8-4c89-a0ba-233b4931b78b">   
+
+
 GitHub Desktop은 파일의 변경사항을 시각적으로 쉽게 확인할 수 있도록 도와줌.    
 파일을 추가, 수정, 삭제할 때마다 해당 내용이 명확하게 표시되므로, 
-  실수로 인한 오류를 줄일 수 있음.
-
-
-   
+실수로 인한 오류를 줄일 수 있음.
 
 <img width="178" alt="형상관리2" src="https://github.com/user-attachments/assets/e4dc0899-6096-45e6-a5ac-5c30f3ec5bd1">
 
