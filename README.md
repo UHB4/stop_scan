@@ -64,6 +64,7 @@
 
  서버 접속 및 파일 전송
 - PUTTY를 사용한 EC2 인스턴스 SSH 접속
+  
 - WinSCP를 이용한 파일 전송
   ![배포5](https://github.com/user-attachments/assets/1faabf59-74a9-4d7b-b470-69bfc239640e)
 
