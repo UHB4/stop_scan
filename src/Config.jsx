@@ -1,6 +1,5 @@
-
 const config = {
-    API_BASE_URL: 'http://15.164.93.108:5000'
+    API_BASE_URL: 'https://stopscan.store/api'
 };
 
-export default config;
+export default config
