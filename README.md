@@ -64,8 +64,13 @@
 
  서버 접속 및 파일 전송
 - PUTTY를 사용한 EC2 인스턴스 SSH 접속
+
 - WinSCP를 이용한 파일 전송   
 
+
+
+  
+- WinSCP를 이용한 파일 전송
 
   ![배포5](https://github.com/user-attachments/assets/1faabf59-74a9-4d7b-b470-69bfc239640e)
 
@@ -74,8 +79,7 @@
 - Nginx 설치 및 리버스 프록시 설정(80포트로 들어오는 요청을 express와 flask서버로 전달)   
 
 <img width="340" alt="배포2" src="https://github.com/user-attachments/assets/0f5f6554-4600-490f-8fff-ff23d3a77fe9">
-<img width="297" alt="배포3" src="https://github.com/user-attachments/assets/1180a76d-4c3f-4b88-93a2-d2c49b1cf7b9">   
-
+<img width="297" alt="배포3" src="https://github.com/user-attachments/assets/1180a76d-4c3f-4b88-93a2-d2c49b1cf7b9">
 <img width="218" alt="배포4" src="https://github.com/user-attachments/assets/57ff15b0-55e6-478d-86da-8a6a23c0b5f4">
 
 
