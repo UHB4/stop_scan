@@ -195,10 +195,10 @@ export default function MainPage() {
                 <div className="scroll-container">
                     <Section1 ref={section1Ref}/>
                     <section ref={section2Ref} className={`${styles.stopscanItems} ${styles.section2}`}>
-                        <div className={styles.cloudContainerTop}>
-                            <Cloud position = "top"/>
+                        {/*<div className={styles.cloudContainerTop}>*/}
+                        {/*    <Cloud position = "top"/>*/}
 
-                        </div>
+                        {/*</div>*/}
                         <div ref={carRRef} className={styles.carRSide}></div>
                         <div ref={titleRef} className={styles.titleText}>
                             STOP SCAN
