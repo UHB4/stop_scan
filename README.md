@@ -99,16 +99,19 @@ HTTPS 설정
 
 ## 형상관리
 Github desktop을 사용하여 형상관리를 수행.
-Git의 모든 기능을 GUI로 제공하여,커맨드라인을 사용하
+Git의 모든 기능을 GUI로 제공하여,커맨드라인을 사용하거나 개발도구를 이용하는거보다
+파일의 변경사항을 시각적으로 쉽게 확인할 수 있도록 도와줌.    
+파일을 추가, 수정, 삭제할 때마다 해당 내용이 명확하게 표시되므로,
+실수로 인한 오류를 줄일 수 있음.
 
 <img width="227" alt="형상관리1" src="https://github.com/user-attachments/assets/f69ced85-01f8-4c89-a0ba-233b4931b78b">   
 
 
-GitHub Desktop은 파일의 변경사항을 시각적으로 쉽게 확인할 수 있도록 도와줌.    
-파일을 추가, 수정, 삭제할 때마다 해당 내용이 명확하게 표시되므로, 
-실수로 인한 오류를 줄일 수 있음.
 
-<img width="178" alt="형상관리2" src="https://github.com/user-attachments/assets/e4dc0899-6096-45e6-a5ac-5c30f3ec5bd1">
+
+<img width="178" alt="형상관리2" src="https://github.com/user-attachments/assets/e4dc0899-6096-45e6-a5ac-5c30f3ec5bd1">   
+
+
 
 GitHub Desktop의 브랜치 관리 기능을 활용하여, 서로 다른 기능을 개발하거나,     
 새로운 시도를 할 때마다 별도의 브랜치를 생성하여 작업할 수 있음.    
