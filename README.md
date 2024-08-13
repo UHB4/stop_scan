@@ -60,6 +60,13 @@
 - SSH 접속을 위한 키 페어 생성
 ![배포1](https://github.com/user-attachments/assets/3195442e-a00a-49cb-b32e-0e45e789651e)
 
+도메인 설정 및 DNS 구성
+- 가비아에서 도메인 구매
+- AWS Route 53에서 호스팅 영역 생성
+- 가비아의 네임서버를 AWS Route 53의 네임서버로 변경
+- Route 53에서 A 레코드 생성하여 EC2 인스턴스의 퍼블릭 IP와 연결
+  ![스크린샷 2024-08-13 104406](https://github.com/user-attachments/assets/2013d424-9583-49ef-a96c-88e446430c29)
+
  서버 접속 및 파일 전송
 - PUTTY를 사용한 EC2 인스턴스 SSH 접속
 
