@@ -105,7 +105,7 @@ Git의 모든 기능을 GUI로 제공하여,커맨드라인을 사용하거나 �
 실수로 인한 오류를 줄일 수 있음.
 
 <img width="227" alt="형상관리1" src="https://github.com/user-attachments/assets/f69ced85-01f8-4c89-a0ba-233b4931b78b">   
-
+<img width="600" alt="깃허브데스크탑" src="https://github.com/user-attachments/assets/125f61e9-865a-46eb-8bee-f84a9d6a863c">
 
 
 
