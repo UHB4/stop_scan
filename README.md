@@ -43,10 +43,6 @@
 
 - 라우팅, 동적 라우팅, query parmeter와 url parameter를 효율적으로 파싱
 
-### OracleDB
-
-- Oracle 데이터베이스와의 연결 및 쿼리 실행
-- 'oracledb'라이브러리를 사용하여 Oracle 데이터베이스와 상호작용
 
 ### Kakao Maps SDK
 
