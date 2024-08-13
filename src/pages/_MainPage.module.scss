@@ -65,7 +65,7 @@ html, body {
     color: $background-light;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     white-space: nowrap;
-    z-index: 1;
+    z-index: 1000;
   }
   @include tablet {
     .titleText{
