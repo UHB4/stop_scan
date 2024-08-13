@@ -23,9 +23,11 @@
 
   @include mobile {
     width: 95%;
+    height: 75vh;
     position: absolute;
-    top: 10%;
+    top: 12%;
     left: 2%;
+
   }
   &.hidden {
     transform: translateX(-120%);
@@ -254,8 +256,9 @@
   @include mobile {
       display: flex;
       justify-content: center;
+
     label {
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
   }
 
