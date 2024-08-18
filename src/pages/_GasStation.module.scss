@@ -113,7 +113,7 @@
 }
 .gasList {
   flex: 1;
-  height: 400px;
+  height: calc(100% - 20vh - 50px);
   overflow-y: auto;
 
   &::-webkit-scrollbar {
@@ -232,7 +232,7 @@
 
 .fuelOptions {
   position: absolute;
-  top: 95%;
+  top: 97%;
   display: flex;
   width: 100%;
   flex-direction: row;
