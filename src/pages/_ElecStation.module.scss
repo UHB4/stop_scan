@@ -1,0 +1,159 @@
+@import '../styles/utils/_mixins';
+@import '../styles/utils/_variables';
+
+.header {
+  background-color:$background-primary;
+  .inner {
+    padding: 20px;
+  }
+  h1 {
+    color: $background-light;
+    cursor: pointer;
+  }
+}
+
+.flexItems {
+  background-color: $background-light;
+  border: 1px solid $background-primary;
+
+  .selectItems {
+    padding: 10px 20px 10px 20px;
+    .selectButtons {
+      button {
+        border-radius: 5px;
+        padding: 10px 15px 10px 15px ;
+        border: 1px solid $background-primary;
+        margin-right: 10px;
+        font-size: 1.4rem;
+        font-weight: lighter;
+        &:hover {
+          background-color: #f0f0f0;
+        }
+      }
+    }
+  }
+}
+.chargerType,.chargerPace {
+  position: relative;
+  padding-right: 20px;
+
+
+
+  .caret {
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url('../assets/icons/caretDown2.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+}
+
+
+.chooseType {
+  position: absolute;
+  top: 120px;
+  left: 20px; // 왼쪽 여백
+  width: 240px;
+  height: 260px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 1000; // 맵 위에 표시되도록 함
+
+  //.typeWrap {
+  //  padding: 20px;
+  //}
+  .titleBox {
+    padding: 10px 20px 10px 20px;
+    font-size: 1.4rem;
+    font-weight: normal;
+    border-bottom: 1px solid #D5D5D5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .closeIcon {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+
+
+  .typeGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 10px 10px 10px 20px;
+    }
+  }
+
+
+.typeButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 70px;
+  //padding: 10px;
+  border: 1px solid #D5D5D5;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #dadada;
+  }
+}
+
+.typeIcon {
+  width: 24px;
+  height: 40px;
+  margin-bottom: 5px;
+}
+
+.applyBox {
+  display: flex;
+  justify-content: right;
+  padding: 10px 20px 10px 20px;
+  border-top: 1px solid #D5D5D5;
+
+  .reset{
+    padding: 8px 15px;
+    border: 1px solid #D5D5D5;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 10px;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+}
+.apply {
+  padding: 8px 15px;
+  color: white;
+  border-radius: 5px;
+  background-color: #548dee;
+
+  &:hover{
+    background-color: #4280ec;
+  }
+}
+
+
+
+
+
+.mapContainer {
+  position: relative; // chooseType의 기준점이 됨
+}

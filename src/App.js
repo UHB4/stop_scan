@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import MainPage from "./pages/MainPage"
 import RestAreaInfo from "./pages/RestAreaInfo";
 import GasStation from "./pages/GasStation";
+import ElecStation from "./pages/ElecStation";
 function App() {
   return (
     <div className="App">
@@ -12,7 +13,8 @@ function App() {
               <Route path="/" element={<MainPage/> }/>
               {/*<Route path="/mainpage" element={<MainPage/> }/>*/}
               <Route path="/RestAreaInfo" element={ <RestAreaInfo/> } />
-                <Route path="/GasStation" element={ <GasStation/> } />
+              <Route path="/GasStation" element={ <GasStation/> } />
+              <Route path="/ElecStation" element={ <ElecStation/> } />
 
 
 
