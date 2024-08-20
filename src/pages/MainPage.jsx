@@ -253,7 +253,10 @@ export default function MainPage() {
                         <div className={styles.restWrapContent}>
                             <div className={styles.restContent}>
                                 <div className={styles.img}>
-                                    <button type="button" className={styles.arrow}></button>
+                                    <button type="button"
+                                            className={styles.arrow}
+                                            onClick={()=> { navigate('/ElecStation')}}
+                                    ></button>
                                 </div>
                                 <div className={styles.txt}>
                                     <p>충전소</p>
