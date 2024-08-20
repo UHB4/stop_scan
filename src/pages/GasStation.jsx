@@ -218,31 +218,19 @@ export default function GasStation() {
                             </>
                         )}
                         {filteredStations.map((station, index) => (
-                            <React.Fragment key={index}>
-                                <MapMarker
-                                    position={{lat: station.latitude, lng: station.longitude}}
-                                    image={{
-                                        src: fuelIcon,
-                                        size: {
-                                            width: 24,
-                                            height: 35
-                                        },
-                                    }}
-                                    title={station.name}
-                                    onClick={() => handleStationClick(station.station_id)}
-                                />
-                                {selectedStationId === station.station_id && (
-                                    <Circle
-                                        center={{lat: station.latitude, lng: station.longitude}}
-                                        radius={40}
-                                        strokeColor={"#548DEE"}
-                                        strokeOpacity={0.7}
-                                        strokeStyle={"solid"}
-                                        fillColor={"#78CFE0"}
-                                        fillOpacity={1}
-                                    />
-                                )}
-                            </React.Fragment>
+                          <MapMarker
+                              key={index}
+                              position={{lat: station.latitude, lng: station.longitude}}
+                            image={{
+                                src: fuelIcon,
+                                size: {
+                                    width: selectedStationId === station.station_id ? 46 : 24,
+                                    height: selectedStationId === station.station_id ? 62 : 35
+                                },
+                            }}
+                            title={station.name}
+                            onClick={()=> handleStationClick(station.station_id)}
+                            />
                         ))}
                     </Map>
                     <div className={`${styles.mapContWrap} ${isMapContVisible ? '' : styles.hidden}`}>
