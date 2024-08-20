@@ -17,7 +17,7 @@ export default function ElecStation() {
 
 
     const handleStopScan = () => {
-        navigate('/mainpage')
+        navigate('/')
     };
     const toggleTypeBox = () => {
         setShowTypeBox(!showTypeBox)
