@@ -40,8 +40,24 @@ html, body {
       }
     }
   }
+
 }
 
+.scrollIndicator {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  font-size: 2rem;
+
+  svg {
+    margin-bottom: 5px;
+  }
+}
 .section2 {
   background-image: url(../assets/main/cloudBg2.png);
   background-size: cover;
